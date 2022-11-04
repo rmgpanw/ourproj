@@ -94,10 +94,10 @@ tar_render_workflowr <- function(output_dir = "public",
 #' Target factory for a single workflowr R markdown report
 #'
 #' Helper function for [tar_render_workflowr()].
-#'
+#' @param rmd_filename Name of a workflowr Rmd file to be rendered.
 #' @inheritParams tar_render_workflowr
 #'
-#' @return
+#' @return A target object (`format = 'file'`) for a single workflowr report.
 tar_render_workflowr_single <- function(rmd_filename,
                                         workflowr_dir = "analysis",
                                         output_dir = "public",
