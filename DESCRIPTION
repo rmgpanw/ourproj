@@ -1,14 +1,29 @@
 Package: ourproj
-Title: What the Package Does (One Line, Title Case)
+Title: Our Datascience Project Workflow
 Version: 0.0.0.9000
-Authors@R: 
-    person("First", "Last", , "first.last@example.com", role = c("aut", "cre"),
-           comment = c(ORCID = "YOUR-ORCID-ID"))
-Description: What the package does (one paragraph).
-License: `use_mit_license()`, `use_gpl3_license()` or friends to pick a
-    license
+Authors@R: c(
+    person(given = "Alasdair",
+           family = "Warwick",
+           role = c("aut", "cre", "cph"),
+           email = "alasdair.warwick06@gmail.com",
+           comment = c(ORCID = "0000-0002-0800-2890")),
+    person(given = "Abraham",
+           family = "Olvera Barrios",
+           role = c("aut", "cph"))
+    )
+Description: Develop reproducible, scalable and sharable data science projects, built on the R packages targets and workflowr.
+License: MIT + file LICENSE
+URL: https://rmgpanw.github.io/ourproj/,
+  https://github.com/rmgpanw/ourproj
+BugReports: https://github.com/rmgpanw/ourproj/issues
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.1
 Imports: 
-    magrittr
+    assertthat,
+    magrittr,
+    purrr,
+    stringr,
+    targets,
+    tarchetypes,
+    workflowr
