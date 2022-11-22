@@ -1,0 +1,21 @@
+name: '{{PROJECT_NAME}}'
+output_dir: ../public
+navbar:
+  title: '{{PROJECT_NAME}}'
+  left:
+  - text: Home
+    href: index.html
+  - text: About
+    href: about.html
+  - text: License
+    href: license.html
+  right:
+  - icon: fab fa-gitlab
+    text: Source code
+    href: https://gitlab.com/rmgpanw/ourproj
+output:
+  workflowr::wflow_html:
+    toc: yes
+    toc_float: yes
+    theme: cosmo
+    highlight: textmate
