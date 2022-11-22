@@ -12,7 +12,7 @@ navbar:
   right:
   - icon: fab fa-gitlab
     text: Source code
-    href: https://gitlab.com/rmgpanw/ourproj
+    href: https://gitlab.com/{{GIT_USERNAME}}/{{PROJECT_NAME}}
 output:
   workflowr::wflow_html:
     toc: yes
