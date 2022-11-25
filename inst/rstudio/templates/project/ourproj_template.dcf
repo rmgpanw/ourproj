@@ -1,0 +1,11 @@
+Binding: ourproj_start
+Title: Ourproj Template
+OpenFiles: _targets.R
+
+Parameter: project_name
+Widget: TextInput
+Label: Project name
+
+Parameter: git_username
+Widget: TextInput
+Label: Gitlab username

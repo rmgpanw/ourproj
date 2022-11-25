@@ -3,3 +3,5 @@
 ^ourproj\.Rproj$
 ^\.Rproj\.user$
 ^LICENSE\.md$
+^inst/ourproj_template/renv$
+^inst/ourproj_template/renv\.lock$
