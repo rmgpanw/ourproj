@@ -14,7 +14,7 @@ Authors@R: c(
 Description: Develop reproducible, scalable and sharable data science projects, built on the R packages targets and workflowr.
 License: MIT + file LICENSE
 URL: https://rmgpanw.github.io/ourproj/,
-  https://github.com/rmgpanw/ourproj
+    https://github.com/rmgpanw/ourproj
 BugReports: https://github.com/rmgpanw/ourproj/issues
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)

@@ -6,3 +6,7 @@
 ^inst/ourproj_template/renv$
 ^inst/ourproj_template/renv\.lock$
 ^README\.Rmd$
+^_pkgdown\.yml$
+^docs$
+^pkgdown$
+^\.github$
