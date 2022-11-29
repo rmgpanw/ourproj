@@ -1,0 +1,4 @@
+name: Workflowr analysis
+description: >
+   Basic Workflowr analysis
+create_dir: FALSE
