@@ -1,3 +1,6 @@
 .Rproj.user
 .Rhistory
 docs
+
+# ourproj_template
+inst/ourproj_template/public/*

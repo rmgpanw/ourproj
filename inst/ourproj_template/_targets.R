@@ -52,9 +52,7 @@ list(
   # target factory to render all workflowr Rmd files in analysis directory
   tar_render_workflowr(workflowr_dir = "analysis",
                        output_dir = "public",
-                       target_prefix = "WORKFLOWR_",
-                       exclude_pattern = "license",
-                       verbose = TRUE),
+                       target_prefix = "WORKFLOWR_"),
 
 ## Manuscript ------------------------------------------------------
 

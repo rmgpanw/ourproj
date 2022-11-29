@@ -4,6 +4,7 @@ site: workflowr::wflow_site
 output:
   workflowr::wflow_html:
     toc: false
+    code_folding: hide
 editor_options:
   chunk_output_type: console
 ---
@@ -40,11 +41,11 @@ targets::tar_load(summary)
 # Targets
 
 ```{r}
-targets::tar_visnetwork()
+targets::tar_visnetwork(callr_arguments = list(show = FALSE))
 ```
 
 # Workflowr reports
 
 ```{r}
-ourproj::wflow_analyses_reactable()
+wflow_analyses_reactable()
 ```

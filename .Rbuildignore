@@ -10,5 +10,8 @@
 ^docs$
 ^pkgdown$
 ^\.github$
+
+# ourproj_template
 .\.gitlab-ci\.yml$
 .\.nojekyll$
+inst/ourproj_template/public/*
