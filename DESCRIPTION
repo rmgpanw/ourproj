@@ -21,11 +21,15 @@ Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.2
 Imports: 
     assertthat,
+    dplyr,
     fs,
+    htmltools,
     magrittr,
     purrr,
+    reactable,
     stringr,
     targets,
     tarchetypes,
+    tidyselect,
     whisker,
     workflowr
