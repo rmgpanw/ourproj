@@ -9,7 +9,7 @@
 #' @param project_name character. The name of the project.
 #' @param git_username character. Gitlab user name.
 #'
-#' @return `NULL` invisibly.
+#' @return `directory` invisibly.
 #' @export
 #'
 #' @examples
@@ -65,7 +65,13 @@ ourproj_start <- function(directory,
                   writeLines(con = .x))
 
   # rename .Rproj file
-  file.rename(from = file.path(directory, "ourproj_template.R"),
-              to = paste0(project_name,
+  file.rename(
+    from = file.path(directory, "ourproj_template.Rproj"),
+    to = file.path(directory,
+                   paste0(project_name,
                           ".Rproj"))
+  )
+
+  # return `directory` invisibly
+  invisible(directory)
 }
