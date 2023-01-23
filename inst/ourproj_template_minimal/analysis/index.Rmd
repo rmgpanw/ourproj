@@ -18,29 +18,10 @@ library(ourproj)
 
 Welcome to my research website.
 
-# Target dependencies
-
-```{r}
-# for demonstration
-tar_load(summary)
-```
-
-# Manuscript
-
-- Manuscript text
-  - [html](manuscript.nb.html){target="_blank"}
-  - [MS Word](manuscript.docx){target="_blank"}
-- Manuscript tables
-  - [html](tables.html){target="_blank"}
-  - [MS Word](tables.docx){target="_blank"}
-- Manuscript figures
-  - [html](figures.html){target="_blank"}
-  - [pdf](figures.pdf){target="_blank"}
-  
 # Targets
 
 ```{r}
-targets::tar_visnetwork(targets_only = TRUE,
+tar_visnetwork(targets_only = TRUE,
                         names = WFLWR_INDEX_RMD,
                         callr_arguments = list(show = FALSE))
 ```

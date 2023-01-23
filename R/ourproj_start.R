@@ -6,8 +6,13 @@
 #' @param directory character. The directory where the new project will be
 #'   created, e.g. "~/myproj". An error is raised if this directory already
 #'   exists.
-#' @param project_name character. The name of the project.
-#' @param git_username character. Gitlab user name.
+#' @param project_name character. The name of the project. Should contain only
+#'   alphanumeric characters, separated by either dashes or underscores (e.g.
+#'   'my-project-name').
+#' @param project_title character. The title of the project.
+#' @param git_username character. GitHub/GitLab user name.
+#' @param github_gitlab character. Either 'github' or 'gitlab'
+#' @param minimal logical. If `TRUE`, sets up a minimal project structure.
 #'
 #' @return `directory` invisibly.
 #' @export
@@ -22,7 +27,17 @@
 #' }
 ourproj_start <- function(directory,
                           project_name,
-                          git_username) {
+                          project_title,
+                          git_username,
+                          github_gitlab = "gitlab",
+                          minimal = FALSE) {
+
+
+  # Validate args -----------------------------------------------------------
+
+  assertthat::assert_that(assertthat::is.string(github_gitlab) &&
+                            (github_gitlab %in% c("github", "gitlab")),
+                          msg = "Argument `github_gitlab` must be either 'github' or 'gitlab'.")
 
   # Copy template project to specified path (`directory`) -------------
 
@@ -31,7 +46,14 @@ ourproj_start <- function(directory,
 
   # For discussion on benefits of `fs::path_package()` vs `system.file()`, see
   # https://r-pkgs.org/data.html#sec-data-system-file
-  fs::dir_copy(path = fs::path_package("ourproj_template",
+
+  if (minimal) {
+    template_dir <- "ourproj_template_minimal"
+  } else {
+    template_dir <- "ourproj_template"
+  }
+
+  fs::dir_copy(path = fs::path_package(template_dir,
                                        package = "ourproj"),
                new_path = directory,
                overwrite = FALSE)
@@ -60,16 +82,19 @@ ourproj_start <- function(directory,
     purrr::walk(~ readLines(.x) %>%
                   whisker::whisker.render(
                     data = list(PROJECT_NAME = project_name,
-                                GIT_USERNAME = git_username)
+                                PROJECT_TITLE = project_title,
+                                GIT_USERNAME = git_username,
+                                GITHUB_GITLAB = github_gitlab)
                   ) %>%
                   writeLines(con = .x))
 
   # rename .Rproj file
+  old_rproj_filename <- paste0(template_dir, ".Rproj")
+  new_rproj_filename <- paste0(project_name, ".Rproj")
+
   file.rename(
-    from = file.path(directory, "ourproj_template.Rproj"),
-    to = file.path(directory,
-                   paste0(project_name,
-                          ".Rproj"))
+    from = file.path(directory, old_rproj_filename),
+    to = file.path(directory, new_rproj_filename)
   )
 
   # return `directory` invisibly

@@ -4,3 +4,6 @@ docs
 
 # ourproj_template
 inst/ourproj_template/public/*
+
+# ourproj_template_minimal
+inst/ourproj_template_minimal/public/*

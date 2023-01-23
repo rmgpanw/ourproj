@@ -5,25 +5,14 @@
 \title{Target factory for workflowr R markdown reports.}
 \usage{
 tar_render_workflowr(
-  output_dir = "public",
-  workflowr_dir = "analysis",
-  target_prefix = "WFLWR_",
   include = NULL,
   exclude = NULL,
-  include_pattern = "\\\\.Rmd$",
+  include_pattern = NULL,
   exclude_pattern = "^_",
   verbose = FALSE
 )
 }
 \arguments{
-\item{output_dir}{Directory where html report files will be rendered to. By
-default this is 'public'.}
-
-\item{workflowr_dir}{Directory where workflowr Rmd files are located. By
-default this is 'analysis'.}
-
-\item{target_prefix}{Prefix for workflowr target names.}
-
 \item{include}{Optional character vector of .Rmd files to be rendered.}
 
 \item{exclude}{Optional character vector of .Rmd files to be excluded.}

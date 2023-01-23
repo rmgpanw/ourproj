@@ -9,3 +9,7 @@ Label: Project name
 Parameter: git_username
 Widget: TextInput
 Label: Gitlab username
+
+Parameter: minimal
+Widget: CheckboxInput
+Label: Minimal

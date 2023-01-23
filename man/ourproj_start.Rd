@@ -4,19 +4,34 @@
 \alias{ourproj_start}
 \title{Start a new workflowr/targets project}
 \usage{
-ourproj_start(directory, project_name, git_username)
+ourproj_start(
+  directory,
+  project_name,
+  project_title,
+  git_username,
+  github_gitlab = "gitlab",
+  minimal = FALSE
+)
 }
 \arguments{
 \item{directory}{character. The directory where the new project will be
 created, e.g. "~/myproj". An error is raised if this directory already
 exists.}
 
-\item{project_name}{character. The name of the project.}
+\item{project_name}{character. The name of the project. Should contain only
+alphanumeric characters, separated by either dashes or underscores (e.g.
+'my-project-name').}
 
-\item{git_username}{character. Gitlab user name.}
+\item{project_title}{character. The title of the project.}
+
+\item{git_username}{character. GitHub/GitLab user name.}
+
+\item{github_gitlab}{character. Either 'github' or 'gitlab'}
+
+\item{minimal}{logical. If \code{TRUE}, sets up a minimal project structure.}
 }
 \value{
-\code{NULL} invisibly.
+\code{directory} invisibly.
 }
 \description{
 Creates a directory with the essential files for a workflowr project, using

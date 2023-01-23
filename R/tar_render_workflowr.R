@@ -10,11 +10,6 @@
 #' Generates a list of target objects to render multiple workflowr R markdown
 #' reports.
 #'
-#' @param output_dir Directory where html report files will be rendered to. By
-#'   default this is 'public'.
-#' @param workflowr_dir Directory where workflowr Rmd files are located. By
-#'   default this is 'analysis'.
-#' @param target_prefix Prefix for workflowr target names.
 #' @param include Optional character vector of .Rmd files to be rendered.
 #' @param exclude Optional character vector of .Rmd files to be excluded.
 #' @param include_pattern By default, include all .Rmd files in `workflowr_dir`.
@@ -29,17 +24,25 @@
 #'
 #' @examples
 #' #TODO
-tar_render_workflowr <- function(output_dir = "public",
-                                 workflowr_dir = "analysis",
-                                 target_prefix = "WFLWR_",
-                                 include = NULL,
+tar_render_workflowr <- function(include = NULL,
                                  exclude = NULL,
-                                 include_pattern = "\\.Rmd$",
+                                 include_pattern = NULL,
                                  exclude_pattern = "^_",
                                  verbose = FALSE) {
 
+  # constants
+  target_prefix <- "WFLWR_"
+  workflowr_dir <- "analysis"
+  output_dir <- file.path(workflowr_dir, "_site.yml") %>%
+    yaml::read_yaml() %>%
+    .$output_dir %>%
+    fs::path_file()
+
   # workflowr files to be knitted
-  wflwr_rmds <- list.files(workflowr_dir)
+  wflwr_rmds <- list.files(workflowr_dir) %>%
+    subset(.,
+           stringr::str_detect(.,
+                               pattern = "\\.Rmd$"))
 
   # include/exclude by pattern first
   if (!is.null(include_pattern)) {
@@ -84,9 +87,87 @@ tar_render_workflowr <- function(output_dir = "public",
     target_prefix = target_prefix
   )
 
+  # render targets for analysis notebooks
+  workflowr_rmds <- purrr::pmap(params,
+                                tar_render_workflowr_single)
+
+  # workflowr yml files
+  workflowr_ymls <- list(
+    targets::tar_target_raw(
+      name = paste0(target_prefix, "WORKFLOWR_YML"),
+      "_workflowr.yml",
+      format = "file"
+    ),
+    targets::tar_target_raw(
+      name = paste0(target_prefix, "SITE_YML"),
+      file.path("analysis", "_site.yml"),
+      format = "file"
+    )
+  )
+
+  # reactable listing and linking to workflowr reports, to be included in
+  # index.Rmd
+  params <- params %>%
+    dplyr::mutate(
+      target_name = wflwr_target_name_from_rmd(rmd_filename = .data[["rmd_filename"]],
+                                               target_prefix = !!target_prefix)
+    )
+
+  params_workflowr_rmds_reactable <- params %>%
+    dplyr::filter(!.data[["rmd_filename"]] %in% c("index.Rmd", "about.Rmd", "license.Rmd")) %>%
+    dplyr::mutate("output_html" := stringr::str_replace(.data[["rmd_filename"]],
+                                                        "Rmd$",
+                                                        "html")) %>%
+    dplyr::mutate(
+      "title" := purrr::map_chr(
+        .data[["rmd_filename"]],
+        ~ file.path("analysis", .x) %>%
+          rmarkdown::yaml_front_matter() %>%
+          .$title %>%
+          ifelse(is.null(.),
+                 yes = .x,
+                 no = .)
+      )
+    ) %>%
+    dplyr::mutate("title" := ifelse(is.na(.data[["title"]]),
+                                    .data[["rmds"]],
+                                    .data[["title"]])) %>%
+    dplyr::mutate("Analysis" := .data[["output_html"]]) %>%
+    dplyr::mutate("Date modified" := file.info(file.path("analysis",
+                                                         .data[["rmd_filename"]]))$ctime)
+
+  workflowr_rmds_reactable <- list(
+    targets::tar_target_raw(
+      name = "WFLWR_RMDS_REACTABLE",
+      command = substitute({
+        # for including URL link in reactable, see https://glin.github.io/reactable/articles/examples.html#cell-rendering
+        params_workflowr_rmds_reactable %>%
+          dplyr::select(tidyselect::all_of(c("Analysis",
+                                             "Date modified"))) %>%
+          reactable::reactable(columns = list(Analysis = reactable::colDef(
+            cell = function(value, index) {
+              # Render as a link
+              htmltools::tags$a(href = value,
+                                # open links in new browser tab
+                                # target = "_blank",
+                                as.character(params_workflowr_rmds_reactable[index, "title"]))
+            }
+          )),
+          filterable = TRUE,
+          resizable = TRUE,
+          showPageSizeOptions = TRUE,
+          paginationType = "jump")
+      }),
+      deps = params %>%
+        dplyr::filter(.data[["rmd_filename"]] != "index.Rmd") %>%
+        dplyr::pull(.data[["target_name"]]),
+    )
+  )
+
   # return a list of targets
-  purrr::pmap(params,
-              tar_render_workflowr_single)
+  c(workflowr_ymls,
+    workflowr_rmds,
+    workflowr_rmds_reactable)
 }
 
 # PRIVATE -----------------------------------------------------------------
@@ -95,8 +176,12 @@ tar_render_workflowr <- function(output_dir = "public",
 #'
 #' Helper function for [tar_render_workflowr()].
 #' @param rmd_filename Name of a workflowr Rmd file to be rendered.
-#' @inheritParams tar_render_workflowr
+#' @param workflowr_dir Directory where workflowr Rmd files are located.
+#' @param output_dir Directory where rendered workflowr reports (html files) should be
+#'   written to.
+#' @param target_prefix Prefix to start workflowr target names with.
 #'
+#' @noRd
 #' @return A target object (`format = 'file'`) for a single workflowr report.
 tar_render_workflowr_single <- function(rmd_filename,
                                         workflowr_dir = "analysis",
@@ -121,12 +206,9 @@ tar_render_workflowr_single <- function(rmd_filename,
                                         replacement = "html")
   output_html_filepath <- file.path(output_dir, html_filename)
 
-  target_name <- toupper(rmd_filename)
-  target_name <- stringr::str_replace_all(target_name,
-                                          "\\.",
-                                          "_")
-  target_name <- paste0(target_prefix,
-                        target_name)
+
+  target_name <- wflwr_target_name_from_rmd(rmd_filename = rmd_filename,
+                                            target_prefix = target_prefix)
 
   # return a target
   targets::tar_target_raw(
@@ -139,7 +221,22 @@ tar_render_workflowr_single <- function(rmd_filename,
       c(input_rmd_filepath,
         output_html_filepath)
     }),
-    deps = tarchetypes::tar_knitr_deps(input_rmd_filepath),
+    deps = c(tarchetypes::tar_knitr_deps(input_rmd_filepath),
+             "WFLWR_SITE_YML",
+             "WFLWR_WORKFLOWR_YML"),
+    error = "continue",
     format = "file"
   )
+}
+
+wflwr_target_name_from_rmd <- function(rmd_filename,
+                                       target_prefix) {
+  target_name <- toupper(rmd_filename)
+  target_name <- stringr::str_replace_all(target_name,
+                                          "\\.",
+                                          "_")
+  target_name <- paste0(target_prefix,
+                        target_name)
+
+  return(target_name)
 }

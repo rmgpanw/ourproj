@@ -1,0 +1,44 @@
+image: rocker/verse:4.2.2
+
+stages:
+  - install
+  - deploy
+
+install_renv:
+  stage: install
+  script: echo "Nil to do"
+  only:
+    - main
+
+variables:
+  RENV_CONFIG_REPOS_OVERRIDE: "http://cran.r-project.org"
+  RENV_PATHS_CACHE: ${CI_PROJECT_DIR}/cache
+  RENV_PATHS_LIBRARY: ${CI_PROJECT_DIR}/renv/library
+
+cache:
+  key: one-key-to-rule-them-all
+  paths:
+    - ${RENV_PATHS_CACHE}
+    - ${RENV_PATHS_LIBRARY}
+
+before_script:
+  - Rscript -e "if (!requireNamespace('renv', quietly = TRUE)) install.packages('renv')"
+  - Rscript -e "renv::restore()"
+
+pages:
+    stage: deploy
+    dependencies:
+        - install
+    script:
+        - Rscript -e 'ourproj::ourproj_start(directory = "temp", project_name = "ourproj", git_username = "rmgpanw", github_gitlab = "github")'
+        - cd temp
+        - git init
+        - git commit -am "initial commit"
+        - Rscript -e 'targets::tar_make()'
+        - cp -r public ../public
+    artifacts:
+        paths:
+            - public
+        expire_in: never
+    only:
+        - main

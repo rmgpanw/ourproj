@@ -1,5 +1,5 @@
 globalVariables(
-  c(".data")
+  c(".data", ".", ":=")
 )
 
 #' @keywords internal
