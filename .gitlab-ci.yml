@@ -28,7 +28,7 @@ before_script:
 pages:
     stage: deploy
     dependencies:
-        - install
+        - install_renv
     script:
         - Rscript -e 'ourproj::ourproj_start(directory = "temp", project_name = "ourproj", git_username = "rmgpanw", github_gitlab = "github")'
         - cd temp
