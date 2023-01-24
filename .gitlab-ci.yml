@@ -36,7 +36,8 @@ pages:
         - git init
         - git config user.email "rmgpanw@gitlab.com"
         - git config user.name "rmgpanw"
-        - git commit -am "initial commit"
+        - git add .
+        - git commit -a "initial commit"
         - Rscript -e 'targets::tar_make()'
         - cp -r public ../public
     artifacts:
