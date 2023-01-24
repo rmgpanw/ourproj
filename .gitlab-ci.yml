@@ -34,6 +34,8 @@ pages:
         - Rscript -e 'ourproj::ourproj_start(directory = "temp", project_name = "ourproj", project_title = "Example Project", git_username = "rmgpanw", github_gitlab = "github")'
         - cd temp
         - git init
+        - git config user.email "rmgpanw@gitlab.com"
+        - git config user.name "rmgpanw"
         - git commit -am "initial commit"
         - Rscript -e 'targets::tar_make()'
         - cp -r public ../public
