@@ -32,13 +32,12 @@ pages:
     script:
         - Rscript -e 'devtools::install_local(".")'
         - Rscript -e 'ourproj::ourproj_start(directory = "temp", project_name = "ourproj", project_title = "Example Project", git_username = "rmgpanw", github_gitlab = "github")'
-        - cd temp
         - git init
         - git config user.email "rmgpanw@gitlab.com"
         - git config user.name "rmgpanw"
-        - git add .
+        - git add temp/.
         - git commit -m "initial commit"
-        - Rscript -e 'targets::tar_make()'
+        - Rscript -e 'targets::tar_make(script = "temp/_targets.R", store = "temp/_targets")'
         - cp -r public ../public
     artifacts:
         paths:
