@@ -30,6 +30,7 @@ pages:
     dependencies:
         - install_renv
     script:
+        - Rscript -e 'devtools::install_local(".")'
         - Rscript -e 'ourproj::ourproj_start(directory = "temp", project_name = "ourproj", git_username = "rmgpanw", github_gitlab = "github")'
         - cd temp
         - git init
