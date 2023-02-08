@@ -6,9 +6,18 @@ Parameter: project_name
 Widget: TextInput
 Label: Project name
 
+Parameter: project_title
+Widget: TextInput
+Label: Project title
+
 Parameter: git_username
 Widget: TextInput
-Label: Gitlab username
+Label: Git username
+
+Parameter: github_gitlab
+Widget: SelectInput
+Label: Remote repository
+Fields: gitlab, github
 
 Parameter: minimal
 Widget: CheckboxInput
