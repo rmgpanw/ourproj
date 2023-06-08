@@ -18,15 +18,17 @@ URL: https://rmgpanw.github.io/ourproj/,
 BugReports: https://github.com/rmgpanw/ourproj/issues
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.2.2
+RoxygenNote: 7.2.3
 Imports: 
     assertthat,
+    cli,
     dplyr,
     fs,
     htmltools,
     magrittr,
     purrr,
     reactable,
+    rlang,
     rmarkdown,
     stringr,
     targets,

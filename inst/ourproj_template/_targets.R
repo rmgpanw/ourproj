@@ -39,18 +39,7 @@ list(
 
   ## Raw data ----------------------------------------------------------
 
-  # # to track files, use 'format = "file"'
-  # tar_target(
-  #   RAW_DATA_CSV,
-  #   file.path("data", "raw_data.csv"),
-  #   format = "file"
-  # ),
-  #
-  # # ...then read as a target
-  # tar_target(
-  #   raw_data,
-  #   readr::read_csv(RAW_DATA_CSV)
-  # ),
+  tar_track_input_files(),
 
   # Analysis targets ----------------------------------------------------------
 

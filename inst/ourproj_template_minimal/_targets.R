@@ -20,6 +20,11 @@ list(
              "_targets_config.R",
              format = "file"),
 
+  ## Raw data ----------------------------------------------------------
+
+  tar_track_input_files(),
+
+
   # Workflowr -------------------------------------------------------
 
   # target factory to render all workflowr Rmd files in analysis directory

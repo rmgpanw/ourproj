@@ -3,4 +3,5 @@
 export("%>%")
 export(ourproj_start)
 export(tar_render_workflowr)
+export(tar_track_input_files)
 importFrom(magrittr,"%>%")
