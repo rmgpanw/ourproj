@@ -21,12 +21,11 @@
 #' \dontrun{
 #'  ourproj_start(
 #'    directory = tempdir(),
-#'    project_name = "my-proj",
+#'    project_title = "My Project",
 #'    git_username = "user"
 #'  )
 #' }
 ourproj_start <- function(directory,
-                          project_name,
                           project_title,
                           git_username,
                           github_gitlab = "gitlab",
@@ -40,7 +39,6 @@ ourproj_start <- function(directory,
                           msg = "Argument `github_gitlab` must be either 'github' or 'gitlab'.")
 
   assertthat::is.string(directory)
-  assertthat::is.string(project_name)
   assertthat::is.string(project_title)
   assertthat::is.string(git_username)
   assertthat::is.flag(minimal)
@@ -57,28 +55,29 @@ ourproj_start <- function(directory,
   }
 
   # check `directory` exists, and `project_directory` does not yet exist
-  assertthat::assert_that(fs::dir_exists(directory),
-                          msg = paste0("Invalid `directory` (does not exist): ",
-                                       directory))
+  project_name <- fs::path_file(directory)
+  project_directory <- fs::path_dir(directory)
 
-  project_directory <- file.path(directory, project_name)
+  assertthat::assert_that(fs::dir_exists(project_directory),
+                          msg = paste0("Directory does not exist: ",
+                                       project_directory))
 
-  assertthat::assert_that(!fs::dir_exists(project_directory),
+  assertthat::assert_that(!fs::dir_exists(directory),
                           msg = paste0("A folder named '",
                                        project_name,
                                        "' already exists at ",
-                                       directory))
+                                       project_directory))
 
   fs::dir_copy(path = fs::path_package(template_dir,
                                        package = "ourproj"),
-               new_path = project_directory,
+               new_path = directory,
                overwrite = FALSE)
 
   # Render files using `whisker.render()` ---------------------
 
   tryCatch({
   file_paths <- list.files(
-    path = project_directory,
+    path = directory,
     full.names = TRUE,
     recursive = TRUE,
     all.files = TRUE
@@ -113,15 +112,13 @@ ourproj_start <- function(directory,
   old_rproj_filename <- paste0(template_dir, ".Rproj")
   new_rproj_filename <- paste0(project_name, ".Rproj")
 
-  stop("Oh dear!!")
-
   file.rename(
-    from = file.path(project_directory, old_rproj_filename),
-    to = file.path(project_directory, new_rproj_filename)
+    from = file.path(directory, old_rproj_filename),
+    to = file.path(directory, new_rproj_filename)
   )},
   error = function(e) {
     # If any errors, remove the newly created directory before exiting
-    unlink(project_directory,
+    unlink(directory,
            recursive = TRUE)
 
     stop(e$message)

@@ -2,10 +2,6 @@ Binding: ourproj_start
 Title: Ourproj Template
 OpenFiles: _targets.R
 
-Parameter: project_name
-Widget: TextInput
-Label: Project name
-
 Parameter: project_title
 Widget: TextInput
 Label: Project title
