@@ -9,7 +9,7 @@ jobs:
         uses: wei/git-sync@v3
         with:
           source_repo: "rmgpanw/ourproj"
-          source_branch: "ouproj"
+          source_branch: "ourproj"
           destination_repo: "rmgpanw/ourproj_template_minimal"
           destination_branch: "main"
           ssh_private_key: ${{ secrets.SSH_PRIVATE_KEY }} # optional
