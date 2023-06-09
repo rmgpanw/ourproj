@@ -17,4 +17,8 @@ jobs:
       run: |
         git clone --mirror https://github.com/rmgpanw/ourproj
         cd ourproj.git
-        git push --mirror https://github.com/rmgpanw/ourproj_template_minimal.git
+        git config --local user.name "Your Name"
+        git config --local user.email "your-email@example.com"
+        git remote add origin https://github.com/rmgpanw/ourproj_template_minimal.git
+        ls -lah
+        git push --set-upstream origin master
