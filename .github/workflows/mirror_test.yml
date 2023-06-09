@@ -51,6 +51,9 @@ jobs:
         git commit -m "initial commit"
         git branch -M main
 
+        echo "debug ssh"
+        ssh -vT git@github.com
+
         echo "add remote origin"
         git remote add origin git@github.com:rmgpanw/ourproj_template_minimal.git
 
