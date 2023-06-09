@@ -1,0 +1,20 @@
+name: Mirror Repository test
+
+on:
+  push:
+    branches:
+      - ourproj_template
+
+jobs:
+  mirror:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout source code
+      uses: actions/checkout@v2
+
+    - name: Mirror repository
+      run: |
+        git clone --mirror https://github.com/rmgpanw/ourproj
+        cd ourproj
+        git push --mirror https://github.com/rmgpanw/ourproj_template_minimal
