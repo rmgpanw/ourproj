@@ -7,5 +7,5 @@
 
 ## My file - typically may be located outside this project, but can be local
 ## also
-MY_FILE_IN_PATH <- "./data/README.md"
+MY_FILE_IN_PATH <- "./_targets_config.R"
 
