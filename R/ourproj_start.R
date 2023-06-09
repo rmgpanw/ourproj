@@ -36,6 +36,10 @@ ourproj_start <- function(directory,
                             (github_gitlab %in% c("github", "gitlab")),
                           msg = "Argument `github_gitlab` must be either 'github' or 'gitlab'.")
 
+  output_dir <- switch(github_gitlab,
+                       github = "docs",
+                       gitlab = "public")
+
   assertthat::is.string(directory)
   assertthat::is.string(project_title)
   assertthat::is.string(git_username)
@@ -102,7 +106,8 @@ ourproj_start <- function(directory,
                     data = list(PROJECT_NAME = project_name,
                                 PROJECT_TITLE = project_title,
                                 GIT_USERNAME = git_username,
-                                GITHUB_GITLAB = github_gitlab)
+                                GITHUB_GITLAB = github_gitlab,
+                                OUTPUT_DIR = output_dir)
                   ) %>%
                   writeLines(con = .x))
 
