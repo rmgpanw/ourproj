@@ -19,7 +19,7 @@ jobs:
         echo "SET UP SSH KEY"
         mkdir -p ~/.ssh
         echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/gh_actions_key
-        chmod 600 ~/.ssh/id_rsa
+        chmod 600 ~/.ssh/gh_actions_key
         ssh-keyscan github.com >> ~/.ssh/known_hosts
 
         echo "LIST FILES"
