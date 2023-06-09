@@ -16,5 +16,5 @@ jobs:
     - name: Mirror repository
       run: |
         git clone --mirror https://github.com/rmgpanw/ourproj
-        cd ourproj
+        cd ourproj.git
         git push --mirror https://github.com/rmgpanw/ourproj_template_minimal
