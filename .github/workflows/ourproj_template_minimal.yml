@@ -1,4 +1,4 @@
-name: Mirror Repository
+name: mirrorminimal
 
 on:
   push:
