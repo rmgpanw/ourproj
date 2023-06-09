@@ -31,11 +31,16 @@ jobs:
         git config --local user.name "Your Name"
         git config --local user.email "your-email@example.com"
 
-        echo "add remote origin"
-        git remote add origin https://github.com/rmgpanw/ourproj_template_minimal.git
-
         echo "list files in dir"
         ls -lah
 
+        echo "add files and commit"
+        git add .
+        git commit -m "initial commit"
+        git branch -M main
+
+        echo "add remote origin"
+        git remote add origin git@github.com:rmgpanw/ourproj_template_minimal.git
+
         echo "push to destination repo"
-        git push --set-upstream origin main
+        git push -u origin main
