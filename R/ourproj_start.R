@@ -97,7 +97,13 @@ ourproj_start <- function(directory,
                                      sep = "",
                                      collapse = "|"
                                    )
-                                 ))
+                                 )) %>%
+    subset(.,
+           stringr::str_detect(
+             string = .,
+             pattern = "renv",
+             negate = TRUE
+           ))
 
   # render with `whisker.render()`
   file_paths_to_render %>%
@@ -134,7 +140,8 @@ ourproj_start <- function(directory,
         )
     ) %>%
     purrr::iwalk( ~ fs::file_copy(path = .x,
-                                  new_path = .y))
+                                  new_path = .y,
+                                  overwrite = TRUE))
 
   # rename .Rproj file
   old_rproj_filename <- paste0(template_dir, ".Rproj")

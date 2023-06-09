@@ -12,11 +12,11 @@
 
 # ourproj_template
 inst/ourproj_template/public/*
-^inst/ourproj_template_minimal/renv/library/*
+inst/ourproj_template_minimal/renv/library/
 
 # ourproj_template
 inst/ourproj_template_minimal/public/*
-^inst/ourproj_template_minimal/renv/library/*
+inst/ourproj_template_minimal/renv/library/
 
 # various
 ^_template_repo_dependencies\.R$
