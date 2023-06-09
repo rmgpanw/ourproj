@@ -19,6 +19,13 @@ jobs:
         cd ourproj.git
         git config --local user.name "Your Name"
         git config --local user.email "your-email@example.com"
-        git remote add origin https://github.com/rmgpanw/ourproj_template_minimal.git
+
+        # Check if remote origin already exists
+        REMOTE_ORIGIN_EXISTS=$(git remote -v | grep origin)
+        if [ -z "$REMOTE_ORIGIN_EXISTS" ]; then
+          git remote add origin https://github.com/{TARGET_OWNER}/{TARGET_REPOSITORY}.git
+        fi
+
         ls -lah
-        git push --set-upstream origin master
+
+        git push --set-upstream origin main
