@@ -1,3 +1,4 @@
+
 #' Start a new workflowr/targets project
 #'
 #' Creates a directory with the essential files for a workflowr project, using
@@ -104,6 +105,31 @@ ourproj_start <- function(directory,
                                 GITHUB_GITLAB = github_gitlab)
                   ) %>%
                   writeLines(con = .x))
+
+  # copy hidden files
+  hidden_files_dir <- fs::path_package("hidden_files",
+                                      package = "ourproj")
+
+  hidden_files <- list.files(
+    hidden_files_dir,
+    full.names = TRUE,
+    recursive = TRUE
+  )
+
+  hidden_files %>%
+    purrr::set_names(
+      ~ .x %>%
+        stringr::str_remove(hidden_files_dir) %>%
+        file.path(directory,
+                  .) %>%
+        stringr::str_replace(
+          pattern = fs::path_file(.),
+          replacement = paste0(".",
+                               fs::path_file(.))
+        )
+    ) %>%
+    purrr::iwalk( ~ fs::file_copy(path = .x,
+                                  new_path = .y))
 
   # rename .Rproj file
   old_rproj_filename <- paste0(template_dir, ".Rproj")
