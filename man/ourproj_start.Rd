@@ -6,21 +6,16 @@
 \usage{
 ourproj_start(
   directory,
-  project_name,
   project_title,
   git_username,
   github_gitlab = "gitlab",
-  minimal = FALSE
+  minimal = TRUE
 )
 }
 \arguments{
 \item{directory}{character. The directory where the new project will be
 created, e.g. "~/myproj". An error is raised if this directory already
 exists.}
-
-\item{project_name}{character. The name of the project. Should contain only
-alphanumeric characters, separated by either dashes or underscores (e.g.
-'my-project-name').}
 
 \item{project_title}{character. The title of the project.}
 
@@ -41,7 +36,7 @@ Gitlab Pages and a targets data analysis pipeline.
 \dontrun{
  ourproj_start(
    directory = tempdir(),
-   project_name = "my-proj",
+   project_title = "My Project",
    git_username = "user"
  )
 }

@@ -6,9 +6,6 @@
 #' @param directory character. The directory where the new project will be
 #'   created, e.g. "~/myproj". An error is raised if this directory already
 #'   exists.
-#' @param project_name character. The name of the project. Should contain only
-#'   alphanumeric characters, separated by either dashes or underscores (e.g.
-#'   'my-project-name').
 #' @param project_title character. The title of the project.
 #' @param git_username character. GitHub/GitLab user name.
 #' @param github_gitlab character. Either 'github' or 'gitlab'
@@ -29,7 +26,7 @@ ourproj_start <- function(directory,
                           project_title,
                           git_username,
                           github_gitlab = "gitlab",
-                          minimal = FALSE) {
+                          minimal = TRUE) {
 
 
   # Validate args -----------------------------------------------------------
