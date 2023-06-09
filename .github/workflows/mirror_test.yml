@@ -3,7 +3,7 @@ name: mirrortest
 on:
   push:
     branches:
-      - ouproj_template
+      - ourproj_template
 
 jobs:
   mirror:
