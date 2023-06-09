@@ -11,16 +11,12 @@
 \.gitlab-ci\.yml$
 
 # ourproj_template
-.\.gitlab-ci\.yml$
-.\.nojekyll$
 inst/ourproj_template/public/*
-^inst/ourproj_template/renv$
-^inst/ourproj_template/renv\.lock$
+^inst/ourproj_template_minimal/renv/library/*
 
 # ourproj_template
 inst/ourproj_template_minimal/public/*
-^inst/ourproj_template_minimal/renv$
-^inst/ourproj_template_minimal/renv\.lock$
+^inst/ourproj_template_minimal/renv/library/*
 
 # various
 ^_template_repo_dependencies\.R$
