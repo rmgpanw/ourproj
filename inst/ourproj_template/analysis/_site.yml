@@ -1,5 +1,5 @@
 name: '{{PROJECT_NAME}}'
-output_dir: ../public
+output_dir: ../{{OUTPUT_DIR}}
 navbar:
   title: '{{PROJECT_TITLE}}'
   left:
