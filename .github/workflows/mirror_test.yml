@@ -20,20 +20,19 @@ jobs:
 
         pwd
 
-        cd ourproj.git
+        cd inst/ourproj_template_minimal
 
         pwd
+
+        echo "INITIATE GIT REPO"
+        git init
 
         echo "set git config"
         git config --local user.name "Your Name"
         git config --local user.email "your-email@example.com"
 
-        # Check if remote origin already exists
         echo "add remote origin"
-        REMOTE_ORIGIN_EXISTS=$(git remote -v | grep origin)
-        if [ -z "$REMOTE_ORIGIN_EXISTS" ]; then
-          git remote add origin https://github.com/{TARGET_OWNER}/{TARGET_REPOSITORY}.git
-        fi
+        git remote add origin https://github.com/{TARGET_OWNER}/{TARGET_REPOSITORY}.git
 
         echo "list files in dir"
         ls -lah
