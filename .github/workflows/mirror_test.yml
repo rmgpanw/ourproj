@@ -35,8 +35,8 @@ jobs:
         git init
 
         echo "set git config"
-        git config --local user.name "Your Name"
-        git config --local user.email "your-email@example.com"
+        git config --local user.name "rmgpanw"
+        git config --local user.email "${{ secrets.GIT_USER_EMAIL }}"
 
         echo "list files in dir"
         ls -lah
