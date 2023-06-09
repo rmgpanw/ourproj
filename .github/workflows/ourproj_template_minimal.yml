@@ -1,0 +1,32 @@
+name: Mirror Repository
+
+on:
+  push:
+    branches:
+      - ouproj_template
+
+jobs:
+  mirror:
+    runs-on: rocker/verse:4.2.2
+
+    steps:
+    - name: Checkout source code
+      uses: actions/checkout@v2
+
+    - name: Mirror repository
+      run: |
+        git clone --mirror https://github.com/rmgpanw/ourproj
+        cd ourproj
+        Rscript -e "if (!requireNamespace('renv', quietly = TRUE)) install.packages('renv')"
+        Rscript -e "renv::restore()"
+        Rscript -e 'devtools::install_local(".")'
+        Rscript -e 'ourproj::ourproj_start(directory = "ourproj_template_minimal", project_title = "My Project", git_username = "rmgpanw", github_gitlab = "github")'
+        cd ourproj_template_minimal
+        git init
+        git config --local user.email "rmgpanw@github.com"
+        git config --local user.name "rmgpanw"
+        git remote add origin https://github.com/rmgpanw/ourproj_template_minimal
+        Rscript -e 'targets::tar_make()'
+        git add .
+        git commit -m "initial commit"
+        git push --set-upstream origin main
