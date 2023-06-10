@@ -12,14 +12,12 @@ jobs:
       - name: Check out repository
         uses: actions/checkout@v2
 
-      - name: Create file
-        run: touch test.txt && rm _template_repo_dependencies.R
-
-      - name: Commit and push changes
+      - name: Create and remove files, commit and push changes
         run: |
           git config --global user.name "GitHub Actions"
           git config --global user.email "actions@github.com"
           git checkout -b test_gha
+          touch test.txt && rm _template_repo_dependencies.R
           git add .
           git commit -m "Add test.txt"
           git push --force origin test_gha

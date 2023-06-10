@@ -3,7 +3,7 @@ name: Create and Push File
 on:
   push:
     branches:
-      - ouproj_template
+      - ourproj_template
 
 jobs:
   create-and-push-file:
