@@ -22,7 +22,7 @@ jobs:
           git checkout -b test_gha
           git add .
           git commit -m "Add test.txt"
-          git push origin test_gha
+          git push --force origin test_gha
 
       - name: git-sync
         uses: wei/git-sync@v3
