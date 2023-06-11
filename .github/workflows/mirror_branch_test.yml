@@ -46,6 +46,7 @@ jobs:
           cp -r .git ~/ourproj_template_minimal
           rm -rf .[^.]* *
           cp -r ~/ourproj_template_minimal/. .
+          ls -lah ~/ourproj_template_minimal > template_files.txt
           git add .
           git commit -m "Initial commit"
           git push --force origin ourproj_template_minimal
