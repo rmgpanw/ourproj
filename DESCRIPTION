@@ -38,5 +38,10 @@ Imports:
     workflowr,
     yaml
 Suggests: 
-    testthat (>= 3.0.0)
+    bookdown,
+    broom,
+    devtools,
+    flextable,
+    testthat (>= 3.0.0),
+    visNetwork
 Config/testthat/edition: 3
