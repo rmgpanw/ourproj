@@ -19,14 +19,6 @@ jobs:
         with:
           use-public-rspm: true
 
-      - name: Cache R packages
-        uses: actions/cache@v2
-        with:
-          path: ${{ env.R_LIBS }}
-          key: ${{ runner.os }}-r-${{ hashFiles('**/DESCRIPTION') }}
-          restore-keys: |
-            ${{ runner.os }}-r-
-
       - name: Install dependencies
         run: |
           R -e 'install.packages("devtools", repos = "https://cloud.r-project.org")'
