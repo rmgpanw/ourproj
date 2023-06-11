@@ -23,6 +23,7 @@ jobs:
         run: |
           rm renv.lock
           rm -r renv
+          rm .Rprofile
           R -e 'install.packages("devtools", repos = "https://cloud.r-project.org")'
           R -e 'library(devtools); install_deps()'
 
