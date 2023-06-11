@@ -21,6 +21,8 @@ jobs:
 
       - name: Install dependencies
         run: |
+          rm renv.lock
+          rm -r renv
           R -e 'install.packages("devtools", repos = "https://cloud.r-project.org")'
           R -e 'library(devtools); install_deps()'
 
