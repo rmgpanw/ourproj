@@ -21,6 +21,11 @@ jobs:
 
       - name: Install dependencies
         run: |
+          R -e 'install.packages("remotes", repos = "https://cloud.r-project.org")'
+          while read -r cmd
+          do
+            eval sudo $cmd
+          done < <(Rscript -e 'writeLines(remotes::system_requirements("ubuntu", "20.04"))')
           R -e 'install.packages("devtools", repos = "https://cloud.r-project.org")'
           R -e 'library(devtools); install_deps()'
 
