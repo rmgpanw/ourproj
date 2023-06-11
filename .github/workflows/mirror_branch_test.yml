@@ -21,6 +21,9 @@ jobs:
 
       - name: Install dependencies
         run: |
+          rm renv.lock
+          rm -r renv
+          rm .Rprofile
           R -e 'install.packages("remotes", repos = "https://cloud.r-project.org")'
           while read -r cmd
           do
@@ -31,7 +34,7 @@ jobs:
 
       - name: Create template repo in separate directory
         run: |
-          R -e 'library(pkgname); ourproj_start(directory = "~/ourproj_template_minimal", project_title = "My Project", git_username = "rmgpanw", github_gitlab = "github")'
+          R -e 'library(ourproj); ourproj_start(directory = "~/ourproj_template_minimal", project_title = "My Project", git_username = "rmgpanw", github_gitlab = "github")'
 
       - name: Create new branch with template repo, commit and push changes
         run: |
