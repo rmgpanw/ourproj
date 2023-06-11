@@ -11,13 +11,37 @@ jobs:
     steps:
       - name: Check out repository
         uses: actions/checkout@v2
+        with:
+          ref: ouproj_template
 
-      - name: Create and remove files, commit and push changes
+      - name: Set up R
+        uses: r-lib/actions/setup-r@v1
+
+      - name: Cache R packages
+        uses: actions/cache@v2
+        with:
+          path: ${{ env.R_LIBS }}
+          key: ${{ runner.os }}-r-${{ hashFiles('**/DESCRIPTION') }}
+          restore-keys: |
+            ${{ runner.os }}-r-
+
+      - name: Install dependencies
+        run: |
+          R -e 'install.packages("devtools", repos = "https://cloud.r-project.org")'
+          R -e 'library(devtools); install_deps()'
+
+      - name: Create template repo in separate directory
+        run: |
+          R -e 'library(pkgname); ourproj_start(directory = "~/ourproj_template_minimal", project_title = "My Project", git_username = "rmgpanw", github_gitlab = "github")'
+
+      - name: Create new branch with template repo, commit and push changes
         run: |
           git config --global user.name "GitHub Actions"
           git config --global user.email "actions@github.com"
-          git checkout -b test_gha
-          touch test.txt && rm _template_repo_dependencies.R
+          git checkout --orphan test_gha
+          git reset
+          rm -r *
+          cp -r ~/ourproj_template_minimal .
           git add .
           git commit -m "Add test.txt"
           git push --force origin test_gha
