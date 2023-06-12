@@ -1,7 +1,7 @@
 ---
-title: "Analysis Title"
+title: "My analysis"
 author: "Your Name"
-date: "The Date"
+date: "`r Sys.Date()`"
 output: 
   workflowr::wflow_html:
     code_folding: hide
@@ -13,7 +13,7 @@ editor_options:
 # setup - load required packages and data (preferably using `tar_load()` and/or `tar_read()`), and define any analysis-specific constants and functions
 knitr::opts_chunk$set(echo = TRUE)
 
-library(tidyverse)
+library(targets)
 ```
 
 # Overview
