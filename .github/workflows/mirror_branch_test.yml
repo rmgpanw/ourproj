@@ -22,6 +22,9 @@ jobs:
       - name: Set up pandoc
         uses: r-lib/actions/setup-pandoc@v1
 
+      - name: Set up tinytex
+        uses: r-lib/actions/setup-tinytex@v2
+
       - name: Install system dependencies
         # first remove renv, then install system requirements based on packages listed in DESCRIPTION
         run: |
