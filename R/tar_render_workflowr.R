@@ -28,7 +28,7 @@ tar_render_workflowr <- function(include = NULL,
                                  exclude = NULL,
                                  include_pattern = NULL,
                                  exclude_pattern = "^_",
-                                 verbose = TRUE) {
+                                 verbose = FALSE) {
 
   # constants
   target_prefix <- "WFLWR_"
