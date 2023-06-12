@@ -62,26 +62,49 @@
 </h1></div>
 <!-- badges: start -->
 <!-- badges: end -->
-<p>The goal of ourproj is to provide a data science project template that combines <a href="https://workflowr.github.io/workflowr/index.html" class="external-link">workflowr</a> with <a href="https://books.ropensci.org/targets/" class="external-link">targets</a>.</p>
+<p>The goal of ourproj is to provide a data science project template that combines <a href="https://workflowr.github.io/workflowr/" class="external-link">workflowr</a> with <a href="https://books.ropensci.org/targets/" class="external-link">targets</a>. Analyses are organised in a <a href="https://workflowr.github.io/workflowr/" class="external-link">workflowr</a> research website, which can be viewed locally and also easily deployed to either <a href="https://pages.github.com/" class="external-link">GitHub Pages</a> or <a href="https://docs.gitlab.com/ee/user/project/pages/" class="external-link">GitLab Pages</a>.</p>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
-<p>You can install the development version of ourproj from <a href="https://github.com/" class="external-link">GitHub</a> with:</p>
+<p>You can install the development version of ourproj from <a href="https://github.com/rmgpanw/ourproj" class="external-link">GitHub</a> with:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># install.packages("devtools")</span></span>
-<span><span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"rmgpanw/ourproj"</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"rmgpanw/ourproj"</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
-<h2 id="getting-started">Getting started<a class="anchor" aria-label="anchor" href="#getting-started"></a>
+<h2 id="quick-start">Quick start<a class="anchor" aria-label="anchor" href="#quick-start"></a>
 </h2>
-<p>Create a new project either from the RStudio menu or from the R console:</p>
+<ul>
+<li>Create a new project either from the <a href="https://r4ds.had.co.nz/workflow-projects.html#rstudio-projects" class="external-link">RStudio new project wizard</a> or from the R console with <code><a href="reference/ourproj_start.html">ourproj::ourproj_start()</a></code>.</li>
+<li>Install required R packages with <code><a href="https://rstudio.github.io/renv/reference/init.html" class="external-link">renv::init()</a></code>.</li>
+<li>Run targets pipeline with <code><a href="https://docs.ropensci.org/targets/reference/tar_make.html" class="external-link">targets::tar_make()</a></code>. This will generate a <a href="https://workflowr.github.io/workflowr/" class="external-link">workflowr</a> research website in either the <code>docs</code> or <code>public</code> directory (for GitHub and GitLab Pages respectively), which may be viewed locally by double clicking on <code>index.html</code> in your file browser.</li>
+</ul>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://rmgpanw.github.io/ourproj/">ourproj</a></span><span class="op">)</span></span>
-<span><span class="co">## create a new project</span></span>
+<span><span class="co"># create a new project</span></span>
 <span><span class="fu"><a href="reference/ourproj_start.html">ourproj_start</a></span><span class="op">(</span>directory <span class="op">=</span> <span class="st">"~/NEW_PROJECT_DIR"</span>,</span>
-<span>              project_name <span class="op">=</span> <span class="st">"My project"</span>,</span>
-<span>              git_username <span class="op">=</span> <span class="st">"My Gitlab username"</span><span class="op">)</span></span></code></pre></div>
-<p>The <code>_targets.R</code> script will automatically track any new R Markdown notebooks added to the analysis directory in your new project.</p>
+<span>              project_title <span class="op">=</span> <span class="st">"My project"</span>, </span>
+<span>              git_username <span class="op">=</span> <span class="st">"My git username"</span>, </span>
+<span>              github_gitlab <span class="op">=</span> <span class="st">"github"</span>, </span>
+<span>              minimal <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># use renv to install required R packages</span></span>
+<span><span class="fu">renv</span><span class="fu">::</span><span class="fu"><a href="https://rstudio.github.io/renv/reference/init.html" class="external-link">init</a></span><span class="op">(</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># run targets pipeline</span></span>
+<span><span class="fu">targets</span><span class="fu">::</span><span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_make.html" class="external-link">tar_make</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<ul>
+<li>Add your own workflowr rmarkdown analyses in the <code>analysis</code> folder (a template is provided, available from the <a href="https://rstudio.github.io/rstudio-extensions/rmarkdown_templates.html" class="external-link">RStudio new rmarkdown wizard</a>). These will be automatically tracked by the targets pipeline.</li>
+<li>Re-run your analysis pipeline with <code><a href="https://docs.ropensci.org/targets/reference/tar_make.html" class="external-link">targets::tar_make()</a></code>.</li>
+</ul>
+</div>
+<div class="section level2">
+<h2 id="example-repositories">Example repositories<a class="anchor" aria-label="anchor" href="#example-repositories"></a>
+</h2>
+<ul>
+<li><a href="https://rmgpanw.github.io/ourproj_template_minimal/"><code>ourproj_template_minimal</code></a></li>
+<li><a href="https://rmgpanw.github.io/ourproj_template/"><code>ourproj_template</code></a></li>
+</ul>
 </div>
 </div>
   </main><aside class="col-md-3"><div class="links">
