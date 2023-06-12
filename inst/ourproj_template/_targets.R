@@ -27,6 +27,17 @@ summ <- function(dataset) {
 # Set target-specific options such as packages.
 tar_option_set(packages = "dplyr")
 
+# Determine whether analyses should be rendered to either `docs` (GitHub Pages)
+# or `public` (GitLab Pages) directory
+WORKFLOWR_OUT_DIR <- file.path("analysis", "_site.yml") %>%
+  yaml::read_yaml() %>%
+  .$output_dir %>%
+  fs::path_file()
+
+if (!dir.exists(WORKFLOWR_OUT_DIR)) {
+  dir.create(WORKFLOWR_OUT_DIR)
+}
+
 # End this file with a list of target objects.
 list(
   # Files ----------------------------------------------------------
@@ -59,7 +70,7 @@ list(
   tar_render(
     MANUSCRIPT_RMD_HTML,
     "manuscript.Rmd",
-    output_file =  file.path("public",
+    output_file =  file.path(WORKFLOWR_OUT_DIR,
                              "manuscript.nb.html"),
     output_format = "bookdown::html_notebook2",
     quiet = FALSE
@@ -68,7 +79,7 @@ list(
   tar_render(
     MANUSCRIPT_RMD_WORD,
     "manuscript.Rmd",
-    output_file =  file.path("public",
+    output_file =  file.path(WORKFLOWR_OUT_DIR,
                              "manuscript.docx"),
     output_format = "bookdown::word_document2",
     quiet = FALSE
@@ -131,7 +142,7 @@ list(
   tar_render(
     MANUSCRIPT_FIGURES_HTML,
     "figures.Rmd",
-    output_file = file.path("public",
+    output_file = file.path(WORKFLOWR_OUT_DIR,
                             "figures.html"),
     output_format = "rmarkdown::html_document",
     quiet = FALSE
@@ -140,7 +151,7 @@ list(
   tar_render(
     MANUSCRIPT_FIGURES_PDF,
     "figures.Rmd",
-    output_file = file.path("public",
+    output_file = file.path(WORKFLOWR_OUT_DIR,
                             "figures.pdf"),
     output_format = "bookdown::pdf_document2",
     quiet = FALSE
@@ -150,7 +161,7 @@ list(
   tar_render(
     MANUSCRIPT_TABLES_HTML,
     "tables.Rmd",
-    output_file = file.path("public",
+    output_file = file.path(WORKFLOWR_OUT_DIR,
                             "tables.html"),
     output_format = "rmarkdown::html_document",
     quiet = FALSE
@@ -160,7 +171,7 @@ list(
     # all tables, no confidence intervals
     MANUSCRIPT_TABLES_DOCX,
     "tables.Rmd",
-    output_file = file.path("public",
+    output_file = file.path(WORKFLOWR_OUT_DIR,
                             "tables.docx"),
     output_format = "bookdown::word_document2",
     quiet = FALSE

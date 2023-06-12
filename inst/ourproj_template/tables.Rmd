@@ -23,6 +23,7 @@ knitr::opts_chunk$set(warning=FALSE, message=FALSE, echo=FALSE,
                       tab.cap.pre = "", tab.cap.sep = "")
 library(targets)
 library(flextable)
+library(broom)
 library(magrittr)
 
 source(file.path("code", "utils.R"))
