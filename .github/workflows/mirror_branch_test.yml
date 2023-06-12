@@ -22,6 +22,10 @@ jobs:
       - name: Set up pandoc
         uses: r-lib/actions/setup-pandoc@v1
 
+      - name: Install pandoc-citeproc
+        run: |
+          sudo apt-get install -y pandoc pandoc-citeproc
+
       - name: Set up tinytex
         uses: r-lib/actions/setup-tinytex@v2
 
