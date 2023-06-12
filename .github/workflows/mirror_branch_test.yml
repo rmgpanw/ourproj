@@ -53,6 +53,7 @@ jobs:
           cp -r .git ~/ourproj_template_minimal
           rm -rf .[^.]* *
           cp -r ~/ourproj_template_minimal/. .
+          R -e 'targets::tar_make()'
           git add .
           git commit -m "Initial commit"
           git push --force origin ourproj_template_minimal
