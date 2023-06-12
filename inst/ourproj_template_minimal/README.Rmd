@@ -17,7 +17,7 @@ library(targets)
 
 # Overview
 
-Project to facilitate phenotype extraction from the UK Biobank dataset. Please see [project website](https://rmgpanw.gitlab.io/ukb_extract_phenotypes) for further details.
+A data science project built with [workflowr](https://workflowr.github.io/workflowr/index.html) and [targets](https://books.ropensci.org/targets/).
 
 # Setup
 
@@ -45,5 +45,5 @@ cat(paste0("```",
            "```"))
 ```
 
-- Install required R packages with `renv::restore()`
+- Install required R packages, ideally using [renv](https://rstudio.github.io/renv/) with `renv::init()`, or `renv::restore()` if a `renv.lock` file is already present.
 - Run [targets pipeline](https://books.ropensci.org/targets/) with `tar_make()` in the R console, or using the 'Build' tab in RStudio.
