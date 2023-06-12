@@ -19,6 +19,9 @@ jobs:
         with:
           use-public-rspm: true
 
+      - name: Set up pandoc
+        uses: r-lib/actions/setup-pandoc@v1
+
       - name: Install system dependencies
         # first remove renv, then install system requirements based on packages listed in DESCRIPTION
         run: |
