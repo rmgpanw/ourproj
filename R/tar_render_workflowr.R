@@ -214,6 +214,9 @@ tar_render_workflowr_single <- function(rmd_filename,
   target_name <- wflwr_target_name_from_rmd(rmd_filename = rmd_filename,
                                             target_prefix = target_prefix)
 
+  # required when using this function with `pmap`
+  verbose <- verbose
+
   # return a target
   targets::tar_target_raw(
     target_name,
