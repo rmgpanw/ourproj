@@ -56,19 +56,19 @@ ourproj_start <- function(directory,
     template_dir <- "ourproj_template"
   }
 
-  # check `directory` exists, and `project_directory` does not yet exist
+  # check `directory` exists, and `project_parent_directory` does not yet exist
   project_name <- fs::path_file(directory)
-  project_directory <- fs::path_dir(directory)
+  project_parent_directory <- fs::path_dir(directory)
 
-  assertthat::assert_that(fs::dir_exists(project_directory),
+  assertthat::assert_that(fs::dir_exists(project_parent_directory),
                           msg = paste0("Directory does not exist: ",
-                                       project_directory))
+                                       project_parent_directory))
 
   assertthat::assert_that(!fs::dir_exists(directory),
                           msg = paste0("A folder named '",
                                        project_name,
                                        "' already exists at ",
-                                       project_directory))
+                                       project_parent_directory))
 
   fs::dir_copy(path = fs::path_package(template_dir,
                                        package = "ourproj"),
@@ -150,7 +150,27 @@ ourproj_start <- function(directory,
   file.rename(
     from = file.path(directory, old_rproj_filename),
     to = file.path(directory, new_rproj_filename)
-  )},
+  )
+
+  # deactivate renv - possibly only needed when installing package from source
+  # locally (i.e. not from GitHub), hence 'if' statement. Also note that
+  # renv::deactivate() restarts the current R session, even when using
+  # withr::with_dir()
+  if (file.exists(file.path(directory,
+                            "renv"))) {
+    unlink(file.path(directory,
+                     "renv"),
+           recursive = TRUE,
+           force = TRUE)
+  }
+
+  if (file.exists(file.path(directory,
+                            "renv.lock"))) {
+    unlink(file.path(directory,
+                     "renv.lock"))
+  }
+
+  },
   error = function(e) {
     # If any errors, remove the newly created directory before exiting
     unlink(directory,
@@ -161,5 +181,5 @@ ourproj_start <- function(directory,
   )
 
   # return `directory` invisibly
-  invisible(project_directory)
+  invisible(directory)
 }
