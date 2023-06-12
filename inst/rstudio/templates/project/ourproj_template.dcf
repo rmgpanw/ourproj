@@ -18,3 +18,4 @@ Fields: gitlab, github
 Parameter: minimal
 Widget: CheckboxInput
 Label: Minimal
+Default: On
