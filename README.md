@@ -17,7 +17,7 @@ Pages](https://docs.gitlab.com/ee/user/project/pages/).
 ## Installation
 
 You can install the development version of ourproj from
-[GitHub](https://github.com/) with:
+[GitHub](https://github.com/rmgpanw/ourproj) with:
 
 ``` r
 # install.packages("devtools")

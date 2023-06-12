@@ -22,7 +22,7 @@ The goal of ourproj is to provide a data science project template that combines 
 
 ## Installation
 
-You can install the development version of ourproj from [GitHub](https://github.com/) with:
+You can install the development version of ourproj from [GitHub](https://github.com/rmgpanw/ourproj) with:
 
 ``` r
 # install.packages("devtools")
