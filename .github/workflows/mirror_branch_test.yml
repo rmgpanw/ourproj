@@ -52,6 +52,7 @@ jobs:
           git reset
           cp -r .git ~/ourproj_template_minimal
           rm -rf .[^.]* *
+          rm .gitignore
           cp -r ~/ourproj_template_minimal/. .
           git add .
           git commit -m "Initial commit"
