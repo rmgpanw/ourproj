@@ -20,6 +20,7 @@ jobs:
           use-public-rspm: true
 
       - name: Install system dependencies
+        # first remove renv, then install system requirements based on packages listed in DESCRIPTION
         run: |
           rm renv.lock
           rm -r renv
@@ -35,15 +36,14 @@ jobs:
         uses: r-lib/actions/setup-r-dependencies@v2
         with:
           extra-packages: local::.
-          # R -e 'install.packages("devtools", repos = "https://cloud.r-project.org")'
-          # R -e 'library(devtools); install_deps()'
 
-      - name: Create template repo in separate directory
+      - name: Create template repos in separate directories
         run: |
           R -e 'devtools::install_local(".")'
-          R -e 'library(ourproj); ourproj_start(directory = "~/ourproj_template_minimal", project_title = "My Project", git_username = "rmgpanw", github_gitlab = "github")'
+          R -e 'library(ourproj); ourproj_start(directory = "~/ourproj_template_minimal", project_title = "My Project", git_username = "rmgpanw", github_gitlab = "github", minimal = TRUE)'
+          R -e 'library(ourproj); ourproj_start(directory = "~/ourproj_template", project_title = "My Project", git_username = "rmgpanw", github_gitlab = "github", minimal = FALSE)'
 
-      - name: Create new branch populated with template repo, commit and push changes
+      - name: Create new orphan branch populated with minimal template repo
         run: |
           git config --global user.name "GitHub Actions"
           git config --global user.email "actions@github.com"
@@ -60,12 +60,40 @@ jobs:
           git commit -m "Run targets pipeline"
           git push --force origin ourproj_template_minimal
 
-      - name: git-sync
+      - name: Create new orphan branch populated with template repo
+        run: |
+          git config --global user.name "GitHub Actions"
+          git config --global user.email "actions@github.com"
+          git checkout --orphan ourproj_template
+          git reset
+          cp -r .git ~/ourproj_template
+          rm -rf .[^.]* *
+          cp -r ~/ourproj_template/. .
+          git add .
+          git commit -m "Initial commit"
+          R -e 'targets::tar_make()'
+          R -e 'targets::tar_meta(fields = error, complete_only = TRUE)'
+          git add .
+          git commit -m "Run targets pipeline"
+          git push --force origin ourproj_template
+
+      - name: git-sync minimal template repo
         uses: wei/git-sync@v3
         with:
           source_repo: "rmgpanw/ourproj"
           source_branch: "ourproj_template_minimal"
           destination_repo: "rmgpanw/ourproj_template_minimal"
+          destination_branch: "main"
+          ssh_private_key: ${{ secrets.SSH_PRIVATE_KEY }} # optional
+          # source_ssh_private_key: ${{ secrets.SOURCE_SSH_PRIVATE_KEY }} # optional, will override `SSH_PRIVATE_KEY`
+          # destination_ssh_private_key: ${{ secrets.DESTINATION_SSH_PRIVATE_KEY }} # optional, will override `SSH_PRIVATE_KEY`
+
+      - name: git-sync template repo
+        uses: wei/git-sync@v3
+        with:
+          source_repo: "rmgpanw/ourproj"
+          source_branch: "ourproj_template"
+          destination_repo: "rmgpanw/ourproj_template"
           destination_branch: "main"
           ssh_private_key: ${{ secrets.SSH_PRIVATE_KEY }} # optional
           # source_ssh_private_key: ${{ secrets.SOURCE_SSH_PRIVATE_KEY }} # optional, will override `SSH_PRIVATE_KEY`
