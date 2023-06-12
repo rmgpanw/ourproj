@@ -23,7 +23,7 @@ tar_render_workflowr(
 "_".}
 
 \item{verbose}{If \code{TRUE}, prints a message listing the .Rmd files for which
-targets will be created.}
+targets will be created. Also passed on to \code{\link[workflowr:wflow_build]{workflowr::wflow_build()}}.}
 }
 \value{
 A list of target objects with \code{format = 'file'}, one for each

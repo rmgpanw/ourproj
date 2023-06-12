@@ -16,7 +16,7 @@
 #' @param exclude_pattern By default, exclude any files with names prefixed by
 #'   "_".
 #' @param verbose If `TRUE`, prints a message listing the .Rmd files for which
-#'   targets will be created.
+#'   targets will be created. Also passed on to [workflowr::wflow_build()].
 #'
 #' @return A list of target objects with `format = 'file'`, one for each
 #'   workflowr report.
@@ -28,7 +28,7 @@ tar_render_workflowr <- function(include = NULL,
                                  exclude = NULL,
                                  include_pattern = NULL,
                                  exclude_pattern = "^_",
-                                 verbose = FALSE) {
+                                 verbose = TRUE) {
 
   # constants
   target_prefix <- "WFLWR_"
@@ -84,7 +84,8 @@ tar_render_workflowr <- function(include = NULL,
     rmd_filename = wflwr_rmds,
     workflowr_dir = workflowr_dir,
     output_dir = output_dir,
-    target_prefix = target_prefix
+    target_prefix = target_prefix,
+    verbose = verbose
   )
 
   # render targets for analysis notebooks
@@ -175,18 +176,21 @@ tar_render_workflowr <- function(include = NULL,
 #' Target factory for a single workflowr R markdown report
 #'
 #' Helper function for [tar_render_workflowr()].
+#'
 #' @param rmd_filename Name of a workflowr Rmd file to be rendered.
 #' @param workflowr_dir Directory where workflowr Rmd files are located.
 #' @param output_dir Directory where rendered workflowr reports (html files) should be
 #'   written to.
 #' @param target_prefix Prefix to start workflowr target names with.
+#' @param verbose logical. Passed on to [workflowr::wflow_build()].
 #'
 #' @noRd
 #' @return A target object (`format = 'file'`) for a single workflowr report.
 tar_render_workflowr_single <- function(rmd_filename,
                                         workflowr_dir = "analysis",
                                         output_dir = "public",
-                                        target_prefix = "WFLWR_") {
+                                        target_prefix = "WFLWR_",
+                                        verbose = FALSE) {
 
   # check that input Rmd file exists
   input_rmd_filepath <- file.path(workflowr_dir, rmd_filename)
@@ -215,7 +219,7 @@ tar_render_workflowr_single <- function(rmd_filename,
     target_name,
     command = substitute({
       suppressMessages(workflowr::wflow_build(input_rmd_filepath,
-                                              verbose = FALSE))
+                                              verbose = verbose))
 
       # returns file paths to both input Rmd and knitted output html
       c(input_rmd_filepath,
