@@ -14,19 +14,12 @@ jobs:
         with:
           ref: ouproj_template
 
-      - name: Cache R libraries
-        uses: actions/cache@v2
-        with:
-          path: ${{ runner.workspace }}/R/Library
-          key: ${{ runner.os }}-r-library-${{ hashFiles('**/DESCRIPTION') }}
-          restore-keys: ${{ runner.os }}-r-library-
-
       - name: Set up R
         uses: r-lib/actions/setup-r@v2
         with:
           use-public-rspm: true
 
-      - name: Install dependencies
+      - name: Install system dependencies
         run: |
           rm renv.lock
           rm -r renv
@@ -36,15 +29,21 @@ jobs:
           do
             eval sudo $cmd
           done < <(Rscript -e 'writeLines(remotes::system_requirements("ubuntu", "20.04"))')
-          R -e 'install.packages("devtools", repos = "https://cloud.r-project.org")'
-          R -e 'library(devtools); install_deps()'
+
+      - name: Install R package dependencies (cached)
+        # see https://github.com/r-lib/actions/tree/v2/setup-r-dependencies
+        uses: r-lib/actions/setup-r-dependencies@v2
+        with:
+          extra-packages: local::.
+          # R -e 'install.packages("devtools", repos = "https://cloud.r-project.org")'
+          # R -e 'library(devtools); install_deps()'
 
       - name: Create template repo in separate directory
         run: |
           R -e 'devtools::install_local(".")'
           R -e 'library(ourproj); ourproj_start(directory = "~/ourproj_template_minimal", project_title = "My Project", git_username = "rmgpanw", github_gitlab = "github")'
 
-      - name: Create new branch with template repo, commit and push changes
+      - name: Create new branch populated with template repo, commit and push changes
         run: |
           git config --global user.name "GitHub Actions"
           git config --global user.email "actions@github.com"
@@ -53,18 +52,13 @@ jobs:
           cp -r .git ~/ourproj_template_minimal
           rm -rf .[^.]* *
           cp -r ~/ourproj_template_minimal/. .
+          git add .
+          git commit -m "Initial commit"
           R -e 'targets::tar_make()'
           R -e 'targets::tar_meta(fields = error, complete_only = TRUE)'
           git add .
-          git commit -m "Initial commit"
+          git commit -m "Run targets pipeline"
           git push --force origin ourproj_template_minimal
-
-      - name: Cache system dependencies
-        uses: actions/cache@v2
-        with:
-          path: /usr/local/lib/R/site-library
-          key: ${{ runner.os }}-sysdeps-${{ hashFiles('**/DESCRIPTION') }}
-          restore-keys: ${{ runner.os }}-sysdeps-
 
       - name: git-sync
         uses: wei/git-sync@v3
