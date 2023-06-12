@@ -1,6 +1,6 @@
 ---
 title: "My analysis"
-author: "Your Name"
+author: "My Name"
 date: "`r Sys.Date()`"
 output: 
   workflowr::wflow_html:

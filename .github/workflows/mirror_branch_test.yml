@@ -62,7 +62,7 @@ jobs:
           cp -r .git ~/ourproj_template_minimal
           rm -rf .[^.]* *
           cp -r ~/ourproj_template_minimal/. .
-          R -e 'fs::file_copy(path = list.files(fs::path_package("rmarkdown/templates/workflowr_analysis/skeleton", package = "ourproj"), full.names = TRUE), new_path = "analysis")'
+          R -e 'fs::file_copy(path = list.files(fs::path_package("rmarkdown/templates/workflowr_analysis/skeleton", package = "ourproj"), full.names = TRUE), new_path = "analysis/my_analysis.Rmd")'
           git add .
           git commit -m "Initial commit"
           R -e 'targets::tar_make()'
@@ -80,7 +80,7 @@ jobs:
           cp -r .git ~/ourproj_template
           rm -rf .[^.]* *
           cp -r ~/ourproj_template/. .
-          R -e 'fs::file_copy(path = list.files(fs::path_package("rmarkdown/templates/workflowr_analysis/skeleton", package = "ourproj"), full.names = TRUE), new_path = "analysis")'
+          R -e 'fs::file_copy(path = list.files(fs::path_package("rmarkdown/templates/workflowr_analysis/skeleton", package = "ourproj"), full.names = TRUE), new_path = "analysis/my_analysis.Rmd")'
           git add .
           git commit -m "Initial commit"
           R -e 'targets::tar_make()'
