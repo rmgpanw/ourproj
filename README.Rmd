@@ -16,6 +16,8 @@ knitr::opts_chunk$set(
 # ourproj
 
 <!-- badges: start -->
+[![pkgdown](https://github.com/rmgpanw/ourproj/actions/workflows/pkgdown.yaml/badge.svg)](https://github.com/rmgpanw/ourproj/actions/workflows/pkgdown.yaml)
+[![mirror-template-repos](https://github.com/rmgpanw/ourproj/actions/workflows/mirror-template-repos.yml/badge.svg)](https://github.com/rmgpanw/ourproj/actions/workflows/mirror-template-repos.yml)
 <!-- badges: end -->
 
 The goal of ourproj is to provide a data science project template that combines  [workflowr](https://workflowr.github.io/workflowr/) with [targets](https://books.ropensci.org/targets/). Analyses are organised in a [workflowr](https://workflowr.github.io/workflowr/) research website, which can be viewed locally and also easily deployed to either [GitHub Pages](https://pages.github.com/) or [GitLab Pages](https://docs.gitlab.com/ee/user/project/pages/).

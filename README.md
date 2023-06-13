@@ -4,6 +4,9 @@
 # ourproj
 
 <!-- badges: start -->
+
+[![pkgdown](https://github.com/rmgpanw/ourproj/actions/workflows/pkgdown.yaml/badge.svg)](https://github.com/rmgpanw/ourproj/actions/workflows/pkgdown.yaml)
+[![mirror-template-repos](https://github.com/rmgpanw/ourproj/actions/workflows/mirror-template-repos.yml/badge.svg)](https://github.com/rmgpanw/ourproj/actions/workflows/mirror-template-repos.yml)
 <!-- badges: end -->
 
 The goal of ourproj is to provide a data science project template that
