@@ -90,7 +90,7 @@ jobs:
           git push --force origin ourproj_template
 
       - name: git-sync minimal template repo
-        uses: wei/git-sync@v3
+        uses: morganschoen/git-sync@main
         with:
           source_repo: "rmgpanw/ourproj"
           source_branch: "ourproj_template_minimal"
@@ -101,7 +101,7 @@ jobs:
           # destination_ssh_private_key: ${{ secrets.DESTINATION_SSH_PRIVATE_KEY }} # optional, will override `SSH_PRIVATE_KEY`
 
       - name: git-sync template repo
-        uses: wei/git-sync@v3
+        uses: morganschoen/git-sync@main
         with:
           source_repo: "rmgpanw/ourproj"
           source_branch: "ourproj_template"
