@@ -15,7 +15,7 @@ Widget: SelectInput
 Label: Remote repository
 Fields: gitlab, github
 
-Parameter: minimal
-Widget: CheckboxInput
-Label: Minimal
-Default: On
+Parameter: template
+Widget: SelectInput
+Label: Project template
+Fields: workflowr_targets_minimal, workflowr_targets

@@ -10,15 +10,15 @@
 ^\.github$
 \.gitlab-ci\.yml$
 
-# ourproj_template
-inst/ourproj_template/public/*
-inst/ourproj_template/renv/
-inst/ourproj_template/renv.lock
+# workflowr_targets
+inst/workflowr_targets/public/*
+inst/workflowr_targets/renv/
+inst/workflowr_targets/renv.lock
 
-# ourproj_template
-inst/ourproj_template_minimal/public/*
-inst/ourproj_template_minimal/renv/
-inst/ourproj_template_minimal/renv.lock
+# workflowr_targets_minimal
+inst/workflowr_targets_minimal/public/*
+inst/workflowr_targets_minimal/renv/
+inst/workflowr_targets_minimal/renv.lock
 
 # various
 ^_template_repo_dependencies\.R$
