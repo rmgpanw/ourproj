@@ -9,7 +9,7 @@ ourproj_start(
   project_title,
   git_username,
   github_gitlab = "gitlab",
-  minimal = TRUE
+  template = "workflowr_targets_minimal"
 )
 }
 \arguments{
@@ -23,7 +23,8 @@ exists.}
 
 \item{github_gitlab}{character. Either 'github' or 'gitlab'}
 
-\item{minimal}{logical. If \code{TRUE}, sets up a minimal project structure.}
+\item{template}{Project template to be used. Options:
+'workflowr_targets_minimal', 'workflowr_targets', 'quarto_website_targets'.}
 }
 \value{
 \code{directory} invisibly.

@@ -10,7 +10,7 @@ test_that("`ourproj_start` runs without error", {
     project_title = "Gitlab project",
     git_username = "rmgpanw",
     github_gitlab = "gitlab",
-    minimal = FALSE
+    template = 'workflowr_targets'
   )
 
   ourproj_start(
@@ -18,7 +18,7 @@ test_that("`ourproj_start` runs without error", {
     project_title = "GitHub project",
     git_username = "rmgpanw",
     github_gitlab = "github",
-    minimal = FALSE
+    template = 'workflowr_targets'
   )
 
   ourproj_start(
@@ -26,7 +26,7 @@ test_that("`ourproj_start` runs without error", {
     project_title = "Gitlab project",
     git_username = "rmgpanw",
     github_gitlab = "gitlab",
-    minimal = TRUE
+    template = 'workflowr_targets_minimal'
   )
 
   ourproj_start(
@@ -34,7 +34,7 @@ test_that("`ourproj_start` runs without error", {
     project_title = "Gitlab GitHub",
     git_username = "rmgpanw",
     github_gitlab = "github",
-    minimal = TRUE
+    template = 'workflowr_targets_minimal'
   )
 
   # check for appropriately named .Rproj file in each newly created directory
