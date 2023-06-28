@@ -115,7 +115,7 @@ jobs:
           git commit -m "Run targets pipeline"
           git push --force origin quarto_website_targets
 
-      - name: git-sync minimal template repo
+      - name: git-sync workflowr_targets_minimal
         uses: morganschoen/git-sync@main
         with:
           source_repo: "rmgpanw/ourproj"
@@ -126,12 +126,23 @@ jobs:
           # source_ssh_private_key: ${{ secrets.SOURCE_SSH_PRIVATE_KEY }} # optional, will override `SSH_PRIVATE_KEY`
           # destination_ssh_private_key: ${{ secrets.DESTINATION_SSH_PRIVATE_KEY }} # optional, will override `SSH_PRIVATE_KEY`
 
-      - name: git-sync template repo
+      - name: git-sync workflowr_targets
         uses: morganschoen/git-sync@main
         with:
           source_repo: "rmgpanw/ourproj"
           source_branch: "workflowr_targets"
           destination_repo: "rmgpanw/workflowr_targets"
+          destination_branch: "main"
+          ssh_private_key: ${{ secrets.SSH_PRIVATE_KEY }} # optional
+          # source_ssh_private_key: ${{ secrets.SOURCE_SSH_PRIVATE_KEY }} # optional, will override `SSH_PRIVATE_KEY`
+          # destination_ssh_private_key: ${{ secrets.DESTINATION_SSH_PRIVATE_KEY }} # optional, will override `SSH_PRIVATE_KEY`
+
+      - name: git-sync quarto_website_targets
+        uses: morganschoen/git-sync@main
+        with:
+          source_repo: "rmgpanw/ourproj"
+          source_branch: "quarto_website_targets"
+          destination_repo: "rmgpanw/quarto_website_targets"
           destination_branch: "main"
           ssh_private_key: ${{ secrets.SSH_PRIVATE_KEY }} # optional
           # source_ssh_private_key: ${{ secrets.SOURCE_SSH_PRIVATE_KEY }} # optional, will override `SSH_PRIVATE_KEY`
