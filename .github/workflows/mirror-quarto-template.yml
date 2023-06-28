@@ -12,7 +12,7 @@ jobs:
       - name: Check out repository
         uses: actions/checkout@v2
         with:
-          ref: main
+          ref: dev_quarto_template
 
       - name: Set up R
         uses: r-lib/actions/setup-r@v2
