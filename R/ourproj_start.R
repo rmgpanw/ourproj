@@ -1,8 +1,16 @@
 
 #' Start a new workflowr/targets project
 #'
-#' Creates a directory with the essential files for a workflowr project, using
-#' Gitlab Pages and a targets data analysis pipeline.
+#' Creates a directory with the essential files for a
+#' [workflowr](https://workflowr.github.io/workflowr/) or
+#' [quarto](https://quarto.org/) project, using GitHub/Gitlab Pages and a
+#' [targets](https://books.ropensci.org/targets/) data analysis pipeline.
+#'
+#' Examples of available project templates:
+#'
+#' - [workflowr_targets_minimal](https://rmgpanw.github.io/workflowr_targets_minimal/)
+#' - [workflowr_targets](https://rmgpanw.github.io/workflowr_targets/)
+#' - [quarto_website_targets](https://rmgpanw.github.io/quarto_website_targets/)
 #'
 #' @param directory character. The directory where the new project will be
 #'   created, e.g. "~/myproj". An error is raised if this directory already

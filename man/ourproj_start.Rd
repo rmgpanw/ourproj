@@ -30,8 +30,18 @@ exists.}
 \code{directory} invisibly.
 }
 \description{
-Creates a directory with the essential files for a workflowr project, using
-Gitlab Pages and a targets data analysis pipeline.
+Creates a directory with the essential files for a
+\href{https://workflowr.github.io/workflowr/}{workflowr} or
+\href{https://quarto.org/}{quarto} project, using GitHub/Gitlab Pages and a
+\href{https://books.ropensci.org/targets/}{targets} data analysis pipeline.
+}
+\details{
+Examples of available project templates:
+\itemize{
+\item \href{https://rmgpanw.github.io/workflowr_targets_minimal/}{workflowr_targets_minimal}
+\item \href{https://rmgpanw.github.io/workflowr_targets/}{workflowr_targets}
+\item \href{https://rmgpanw.github.io/quarto_website_targets/}{quarto_website_targets}
+}
 }
 \examples{
 \dontrun{
