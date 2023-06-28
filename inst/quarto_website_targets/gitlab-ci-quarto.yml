@@ -1,0 +1,50 @@
+image: rocker/verse:4.2.2
+
+stages:
+  - install
+  - deploy
+
+install_renv:
+  stage: install
+  script: echo "Nil to do"
+
+.quarto:
+  stage: deploy
+  script:
+    - quarto render .
+  artifacts:
+    paths:
+      - public
+
+variables:
+  RENV_CONFIG_REPOS_OVERRIDE: "http://cran.r-project.org"
+  RENV_PATHS_CACHE: ${CI_PROJECT_DIR}/cache
+  RENV_PATHS_LIBRARY: ${CI_PROJECT_DIR}/renv/library
+
+cache:
+  key: one-key-to-rule-them-all
+  paths:
+    - ${RENV_PATHS_CACHE}
+    - ${RENV_PATHS_LIBRARY}
+
+before_script:
+  - Rscript -e "if (!requireNamespace('renv', quietly = TRUE)) install.packages('renv')"
+  - Rscript -e "renv::restore()"
+
+pages:
+  extends: .quarto
+  only:
+    - master
+
+mr-review:
+  extends: .quarto
+  after_script:
+    - echo "ENVIRONMENT_URL=https://$CI_PROJECT_NAMESPACE.$CI_PAGES_DOMAIN/-/$CI_PROJECT_NAME/-/jobs/$CI_JOB_ID/artifacts/public/index.html" >> deploy.env
+  artifacts:
+    reports:
+      dotenv: deploy.env
+  environment:
+    name: review/$CI_COMMIT_REF_NAME
+    url: $ENVIRONMENT_URL
+  only:
+    - merge_requests

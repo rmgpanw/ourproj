@@ -20,5 +20,12 @@ inst/workflowr_targets_minimal/public/*
 inst/workflowr_targets_minimal/renv/
 inst/workflowr_targets_minimal/renv.lock
 
+# quarto_website_targets
+inst/quarto_website_targets/public/*
+inst/quarto_website_targets/{{OUTPUT_DIR}}/*
+inst/quarto_website_targets/renv/
+inst/quarto_website_targets/renv.lock
+inst/quarto_website_targets/\.quarto
+
 # various
 ^_template_repo_dependencies\.R$

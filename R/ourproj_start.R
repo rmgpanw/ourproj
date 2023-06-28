@@ -88,7 +88,8 @@ ourproj_start <- function(directory,
   )
 
   # subset for files to be rendered
-  files_to_render <- c("_site.yml")
+  files_to_render <- c("_site.yml",
+                       "_quarto.yml")
 
   file_paths_to_render <- subset(file_paths,
                                  stringr::str_detect(
