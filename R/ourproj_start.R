@@ -132,6 +132,8 @@ ourproj_start <- function(directory,
   )
 
   message("Copy hidden files")
+  message(pate0("Hidden files: "),
+          paste(hidden_files, sep = "", collapse = ", "))
   hidden_files %>%
     purrr::set_names(
       ~ .x %>%
@@ -144,9 +146,14 @@ ourproj_start <- function(directory,
                                fs::path_file(.))
         )
     ) %>%
-    purrr::iwalk( ~ fs::file_copy(path = .x,
+    purrr::iwalk( ~ {
+      message(paste0("Copying hidden file: ",
+                     .x,
+                     " to ",
+                     .y))
+      fs::file_copy(path = .x,
                                   new_path = .y,
-                                  overwrite = TRUE))
+                                  overwrite = TRUE)})
 
   # rename .Rproj file
   message("Rename .Rproj file")
