@@ -1,0 +1,33 @@
+---
+title: "Home"
+site: workflowr::wflow_site
+output:
+  workflowr::wflow_html:
+    toc: false
+    code_folding: hide
+editor_options:
+  chunk_output_type: console
+---
+
+```{r setup, global-options, results="hide", echo=ifelse(knitr::is_html_output(), yes=TRUE, no=FALSE), message=FALSE, warning=FALSE}
+knitr::opts_chunk$set(warning=FALSE, message=FALSE, echo=ifelse(knitr::is_html_output(), yes=TRUE, no=FALSE),
+                      tab.cap.pre = "", tab.cap.sep = "")
+library(targets)
+library(ourproj)
+```
+
+Welcome to my research website.
+
+# Targets
+
+```{r}
+tar_visnetwork(targets_only = TRUE,
+                        names = WFLWR_INDEX_RMD,
+                        callr_arguments = list(show = FALSE))
+```
+
+# Workflowr reports
+
+```{r}
+tar_read(WFLWR_RMDS_REACTABLE)
+```
