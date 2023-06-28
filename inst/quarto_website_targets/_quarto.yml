@@ -5,7 +5,7 @@ project:
     - "*.qmd"
 
 website:
-  title: "{{PROJECT_NAME}}"
+  title: "{{PROJECT_TITLE}}"
   favicon: "coffee-cup.svg"
   navbar:
     left:
