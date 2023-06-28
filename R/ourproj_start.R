@@ -109,7 +109,6 @@ ourproj_start <- function(directory,
            ))
 
   # render with `whisker.render()`
-  message("Render _site.qml/_quarto.yml")
   file_paths_to_render %>%
     purrr::walk(~ readLines(.x) %>%
                   whisker::whisker.render(
@@ -131,11 +130,6 @@ ourproj_start <- function(directory,
     recursive = TRUE
   )
 
-  message("Copy hidden files")
-  message(paste0("Hidden files: "),
-          paste(fs::path_file(hidden_files), sep = "", collapse = ", "))
-  message(paste0("Contents of `directory`: ",
-                 list.files(directory)))
   hidden_files %>%
     purrr::set_names(
       ~ .x %>%
@@ -148,17 +142,11 @@ ourproj_start <- function(directory,
                                fs::path_file(.))
         )
     ) %>%
-    purrr::iwalk( ~ {
-      message(paste0("Copying hidden file: ",
-                     .x,
-                     " to ",
-                     .y))
-      fs::file_copy(path = .x,
+    purrr::iwalk( ~ fs::file_copy(path = .x,
                                   new_path = .y,
-                                  overwrite = TRUE)})
+                                  overwrite = TRUE))
 
   # rename .Rproj file
-  message("Rename .Rproj file")
   old_rproj_filename <- paste0(template, ".Rproj")
   new_rproj_filename <- paste0(project_name, ".Rproj")
 
@@ -171,7 +159,6 @@ ourproj_start <- function(directory,
   # locally (i.e. not from GitHub), hence 'if' statement. Also note that
   # renv::deactivate() restarts the current R session, even when using
   # withr::with_dir()
-  message("Remove renv dir")
   if (file.exists(file.path(directory,
                             "renv"))) {
     unlink(file.path(directory,
@@ -180,7 +167,6 @@ ourproj_start <- function(directory,
            force = TRUE)
   }
 
-  message("Remove renv.lock")
   if (file.exists(file.path(directory,
                             "renv.lock"))) {
     unlink(file.path(directory,
