@@ -6,7 +6,7 @@ on:
       - dev_quarto_template
 
 jobs:
-  git-sync:
+  mirror-template-repos:
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository
@@ -57,7 +57,7 @@ jobs:
       - name: Create template repos in separate directories
         run: |
           R -e 'devtools::install_local(".")'
-          R -e 'library(ourproj); ourproj_start(directory = "~/quarto_website_targets", project_title = "My Project", git_username = "rmgpanw", github_gitlab = "github", template = "quarto_website_targets"")'
+          R -e 'library(ourproj); ourproj_start(directory = "~/quarto_website_targets", project_title = "My Project", git_username = "rmgpanw", github_gitlab = "github", template = "quarto_website_targets")'
 
       - name: Create new orphan branch populated with quarto_website_targets template repo
         run: |
