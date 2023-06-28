@@ -1,0 +1,48 @@
+---
+title: "Figures"
+date: "(`r Sys.Date()`)"
+output: 
+  bookdown::pdf_document2:
+    latex_engine: xelatex
+    toc: yes
+    number_sections: no
+    geometry: "left=0.3cm, right=0.3cm, top=0.3cm, bottom=0.3cm"
+  rmarkdown::html_document:
+    toc: true
+    toc_float:
+      toc_collapsed: yes
+    toc_depth: 3
+    number_sections: no
+    theme: paper
+    highlight: textmate
+---
+
+```{r setup, global-options, echo=FALSE}
+knitr::opts_chunk$set(warning=FALSE, message=FALSE, echo=FALSE,
+                      tab.cap.pre = "", tab.cap.sep = "")
+library(targets)
+
+source(file.path("code", "utils.R"))
+
+# captions
+caps <- tar_read(figure_table_captions)
+```
+
+\newpage
+# Figure 1
+
+```{r out.width='100%'}
+tar_read(data) %>% 
+  plot()
+```
+
+`r bold_cap(caps$main_figure('plot1'))`
+
+\newpage
+# sFigure 1
+
+```{r out.width='100%'}
+plot(pressure)
+```
+
+`r bold_cap(caps$supplementary_figure('plot2'))`

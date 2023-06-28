@@ -1,0 +1,55 @@
+---
+title: "Tables"
+date: "(`r Sys.Date()`)"
+output: 
+  rmarkdown::html_document:
+    toc: true
+    toc_float:
+      toc_collapsed: yes
+    toc_depth: 3
+    number_sections: no
+    theme: paper
+    highlight: textmate
+  bookdown::word_document2:
+    reference_docx: word-styles-reference-01.docx
+    number_sections: no
+    toc: yes
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, global-options, echo=FALSE}
+knitr::opts_chunk$set(warning=FALSE, message=FALSE, echo=FALSE,
+                      tab.cap.pre = "", tab.cap.sep = "")
+library(targets)
+library(flextable)
+library(broom)
+library(magrittr)
+
+source(file.path("code", "utils.R"))
+
+# captions
+caps <- tar_read(figure_table_captions)
+```
+
+\newpage
+# Table 1
+
+`r bold_cap(caps$main_table('table1'))`
+
+```{r}
+tar_read(summary) %>% 
+  flextable()
+```
+
+\newpage
+# sTable 1
+
+`r bold_cap(caps$supplementary_table('table2'))`
+
+```{r}
+tar_read(data) %>% 
+  lm(y ~ x, data = .) %>% 
+  as_flextable()
+```
+
