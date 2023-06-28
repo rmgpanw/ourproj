@@ -56,7 +56,7 @@ Gitlab Pages and a targets data analysis pipeline.</p>
 <span>  <span class="va">project_title</span>,</span>
 <span>  <span class="va">git_username</span>,</span>
 <span>  github_gitlab <span class="op">=</span> <span class="st">"gitlab"</span>,</span>
-<span>  minimal <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span>  template <span class="op">=</span> <span class="st">"workflowr_targets_minimal"</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -80,8 +80,9 @@ exists.</p></dd>
 <dd><p>character. Either 'github' or 'gitlab'</p></dd>
 
 
-<dt>minimal</dt>
-<dd><p>logical. If <code>TRUE</code>, sets up a minimal project structure.</p></dd>
+<dt>template</dt>
+<dd><p>Project template to be used. Options:
+'workflowr_targets_minimal', 'workflowr_targets', 'quarto_website_targets'.</p></dd>
 
 </dl></div>
     <div class="section level2">
