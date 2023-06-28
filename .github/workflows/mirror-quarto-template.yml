@@ -57,7 +57,7 @@ jobs:
       - name: Create template repos in separate directories
         run: |
           R -e 'devtools::install_local(".")'
-          R -e 'library(ourproj); ourproj_start(directory = "~/ourproj_template_minimal", project_title = "My Project", git_username = "rmgpanw", github_gitlab = "github", minimal = "workflowr_targets_minimal")'
+          R -e 'library(ourproj); ourproj_start(directory = "~/ourproj_template_minimal", project_title = "My Project", git_username = "rmgpanw", github_gitlab = "github", template = "workflowr_targets_minimal")'
           R -e 'library(ourproj); ourproj_start(directory = "~/quarto_website_targets", project_title = "My Project", git_username = "rmgpanw", github_gitlab = "github", template = "quarto_website_targets")'
 
       - name: Create new orphan branch populated with quarto_website_targets template repo
