@@ -132,8 +132,8 @@ ourproj_start <- function(directory,
   )
 
   message("Copy hidden files")
-  message(pate0("Hidden files: "),
-          paste(hidden_files, sep = "", collapse = ", "))
+  message(paste0("Hidden files: "),
+          paste(fs::path_file(hidden_files), sep = "", collapse = ", "))
   hidden_files %>%
     purrr::set_names(
       ~ .x %>%
