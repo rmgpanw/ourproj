@@ -10,11 +10,11 @@
 <!-- badges: end -->
 
 The goal of ourproj is to provide a data science project template that
-combines [workflowr](https://workflowr.github.io/workflowr/) with
+combines [workflowr](https://workflowr.github.io/workflowr/) or
+[quarto](https://quarto.org/) with
 [targets](https://books.ropensci.org/targets/). Analyses are organised
-in a [workflowr](https://workflowr.github.io/workflowr/) research
-website, which can be viewed locally and also easily deployed to either
-[GitHub Pages](https://pages.github.com/) or [GitLab
+in research website, which can be viewed locally and also easily
+deployed to either [GitHub Pages](https://pages.github.com/) or [GitLab
 Pages](https://docs.gitlab.com/ee/user/project/pages/).
 
 ## Installation
@@ -46,7 +46,7 @@ ourproj_start(directory = "~/NEW_PROJECT_DIR",
               project_title = "My project", 
               git_username = "My git username", 
               github_gitlab = "github", 
-              minimal = TRUE)
+              template = "workflowr_targets_minimal")
 
 # use renv to install required R packages
 renv::init()
@@ -63,5 +63,6 @@ targets::tar_make()
 
 ## Example repositories
 
-- [`ourproj_template_minimal`](https://rmgpanw.github.io/ourproj_template_minimal/)
-- [`ourproj_template`](https://rmgpanw.github.io/ourproj_template/)
+- [`workflowr_targets_minimal`](https://rmgpanw.github.io/workflowr_targets_minimal/)
+- [`workflowr_targets`](https://rmgpanw.github.io/workflowr_targets/)
+- [`quarto_website_targets`](https://rmgpanw.github.io/quarto_website_targets/)
