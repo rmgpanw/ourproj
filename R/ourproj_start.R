@@ -10,7 +10,8 @@
 #' @param project_title character. The title of the project.
 #' @param git_username character. GitHub/GitLab user name.
 #' @param github_gitlab character. Either 'github' or 'gitlab'
-#' @param minimal logical. If `TRUE`, sets up a minimal project structure.
+#' @param template Project template to be used. Options:
+#'   'workflowr_targets_minimal', 'workflowr_targets', 'quarto_website_targets'.
 #'
 #' @return `directory` invisibly.
 #' @export
@@ -27,7 +28,7 @@ ourproj_start <- function(directory,
                           project_title,
                           git_username,
                           github_gitlab = "gitlab",
-                          minimal = TRUE) {
+                          template = 'workflowr_targets_minimal') {
 
 
   # Validate args -----------------------------------------------------------
@@ -43,18 +44,19 @@ ourproj_start <- function(directory,
   assertthat::is.string(directory)
   assertthat::is.string(project_title)
   assertthat::is.string(git_username)
-  assertthat::is.flag(minimal)
+  match.arg(
+    template,
+    choices = c(
+      'workflowr_targets_minimal',
+      'workflowr_targets',
+      'quarto_website_targets'
+    )
+  )
 
   # Copy template project to specified path (`directory`) -------------
 
   # For discussion on benefits of `fs::path_package()` vs `system.file()`, see
   # https://r-pkgs.org/data.html#sec-data-system-file
-
-  if (minimal) {
-    template_dir <- "ourproj_template_minimal"
-  } else {
-    template_dir <- "ourproj_template"
-  }
 
   # check `directory` exists, and `project_parent_directory` does not yet exist
   project_name <- fs::path_file(directory)
@@ -70,7 +72,7 @@ ourproj_start <- function(directory,
                                        "' already exists at ",
                                        project_parent_directory))
 
-  fs::dir_copy(path = fs::path_package(template_dir,
+  fs::dir_copy(path = fs::path_package(template,
                                        package = "ourproj"),
                new_path = directory,
                overwrite = FALSE)
@@ -86,7 +88,8 @@ ourproj_start <- function(directory,
   )
 
   # subset for files to be rendered
-  files_to_render <- c("_site.yml")
+  files_to_render <- c("_site.yml",
+                       "_quarto.yml")
 
   file_paths_to_render <- subset(file_paths,
                                  stringr::str_detect(
@@ -152,7 +155,7 @@ ourproj_start <- function(directory,
                     overwrite = TRUE)})
 
   # rename .Rproj file
-  old_rproj_filename <- paste0(template_dir, ".Rproj")
+  old_rproj_filename <- paste0(template, ".Rproj")
   new_rproj_filename <- paste0(project_name, ".Rproj")
 
   file.rename(

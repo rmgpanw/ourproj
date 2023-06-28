@@ -1,0 +1,41 @@
+project:
+  type: website
+  output-dir: "{{OUTPUT_DIR}}"
+  render:
+    - "*.qmd"
+
+website:
+  title: "{{PROJECT_NAME}}"
+  favicon: "coffee-cup.svg"
+  navbar:
+    left:
+      - href: index.qmd
+        text: Home
+      - href: analyses_listing.qmd
+        text: Analyses
+    right:
+      - icon: git
+        href: https://{{GITHUB_GITLAB}}.com/{{GIT_USERNAME}}/{{PROJECT_NAME}}
+        aria-label: github_gitlab
+  repo-url: https://{{GITHUB_GITLAB}}.com/{{GIT_USERNAME}}/{{PROJECT_NAME}}
+  repo-actions: [edit, issue]
+  repo-branch: main
+  reader-mode: true
+
+
+
+format:
+  html:
+    theme:
+      light: flatly
+      dark: darkly
+    css: styles.css
+    toc: true
+    code-fold: true
+    code-link: true
+    code-tools:
+      source: repo
+      toggle: true
+      caption: Code
+
+editor: source

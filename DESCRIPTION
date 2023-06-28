@@ -42,6 +42,7 @@ Suggests:
     broom,
     devtools,
     flextable,
+    quarto,
     testthat (>= 3.0.0),
     visNetwork
 Config/testthat/edition: 3

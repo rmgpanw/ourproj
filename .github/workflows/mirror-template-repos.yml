@@ -6,7 +6,7 @@ on:
       - main
 
 jobs:
-  git-sync:
+  mirror-template-repos:
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository
@@ -29,6 +29,13 @@ jobs:
       - name: Set up tinytex
         uses: r-lib/actions/setup-tinytex@v2
 
+      - name: Set up Quarto
+        uses: quarto-dev/quarto-actions/setup@v2
+
+      - name: Quarto version
+        run: |
+          quarto --version
+
       - name: Install system dependencies
         # first remove renv, then install system requirements based on packages listed in DESCRIPTION
         run: |
@@ -50,18 +57,19 @@ jobs:
       - name: Create template repos in separate directories
         run: |
           R -e 'devtools::install_local(".")'
-          R -e 'library(ourproj); ourproj_start(directory = "~/ourproj_template_minimal", project_title = "My Project", git_username = "rmgpanw", github_gitlab = "github", minimal = TRUE)'
-          R -e 'library(ourproj); ourproj_start(directory = "~/ourproj_template", project_title = "My Project", git_username = "rmgpanw", github_gitlab = "github", minimal = FALSE)'
+          R -e 'library(ourproj); ourproj_start(directory = "~/workflowr_targets_minimal", project_title = "My Project", git_username = "rmgpanw", github_gitlab = "github", template = "workflowr_targets_minimal")'
+          R -e 'library(ourproj); ourproj_start(directory = "~/workflowr_targets", project_title = "My Project", git_username = "rmgpanw", github_gitlab = "github", template = "workflowr_targets")'
+          R -e 'library(ourproj); ourproj_start(directory = "~/quarto_website_targets", project_title = "My Project", git_username = "rmgpanw", github_gitlab = "github", template = "quarto_website_targets")'
 
       - name: Create new orphan branch populated with minimal template repo
         run: |
           git config --global user.name "GitHub Actions"
           git config --global user.email "actions@github.com"
-          git checkout --orphan ourproj_template_minimal
+          git checkout --orphan workflowr_targets_minimal
           git reset
-          cp -r .git ~/ourproj_template_minimal
+          cp -r .git ~/workflowr_targets_minimal
           rm -rf .[^.]* *
-          cp -r ~/ourproj_template_minimal/. .
+          cp -r ~/workflowr_targets_minimal/. .
           R -e 'fs::file_copy(path = list.files(fs::path_package("rmarkdown/templates/workflowr_analysis/skeleton", package = "ourproj"), full.names = TRUE), new_path = "analysis/my_analysis.Rmd")'
           git add .
           git commit -m "Initial commit"
@@ -69,17 +77,17 @@ jobs:
           R -e 'targets::tar_meta(fields = error, complete_only = TRUE)'
           git add .
           git commit -m "Run targets pipeline"
-          git push --force origin ourproj_template_minimal
+          git push --force origin workflowr_targets_minimal
 
       - name: Create new orphan branch populated with template repo
         run: |
           git config --global user.name "GitHub Actions"
           git config --global user.email "actions@github.com"
-          git checkout --orphan ourproj_template
+          git checkout --orphan workflowr_targets
           git reset
-          cp -r .git ~/ourproj_template
+          cp -r .git ~/workflowr_targets
           rm -rf .[^.]* *
-          cp -r ~/ourproj_template/. .
+          cp -r ~/workflowr_targets/. .
           R -e 'fs::file_copy(path = list.files(fs::path_package("rmarkdown/templates/workflowr_analysis/skeleton", package = "ourproj"), full.names = TRUE), new_path = "analysis/my_analysis.Rmd")'
           git add .
           git commit -m "Initial commit"
@@ -87,14 +95,32 @@ jobs:
           R -e 'targets::tar_meta(fields = error, complete_only = TRUE)'
           git add .
           git commit -m "Run targets pipeline"
-          git push --force origin ourproj_template
+          git push --force origin workflowr_targets
+
+      - name: Create new orphan branch populated with quarto_website_targets template repo
+        run: |
+          git config --global user.name "GitHub Actions"
+          git config --global user.email "actions@github.com"
+          git checkout --orphan quarto_website_targets
+          git reset
+          cp -r .git ~/quarto_website_targets
+          rm -rf .[^.]* *
+          cp -r ~/quarto_website_targets/. .
+
+          git add .
+          git commit -m "Initial commit"
+          R -e 'targets::tar_make()'
+          R -e 'targets::tar_meta(fields = error, complete_only = TRUE)'
+          git add .
+          git commit -m "Run targets pipeline"
+          git push --force origin quarto_website_targets
 
       - name: git-sync minimal template repo
         uses: morganschoen/git-sync@main
         with:
           source_repo: "rmgpanw/ourproj"
-          source_branch: "ourproj_template_minimal"
-          destination_repo: "rmgpanw/ourproj_template_minimal"
+          source_branch: "workflowr_targets_minimal"
+          destination_repo: "rmgpanw/workflowr_targets_minimal"
           destination_branch: "main"
           ssh_private_key: ${{ secrets.SSH_PRIVATE_KEY }} # optional
           # source_ssh_private_key: ${{ secrets.SOURCE_SSH_PRIVATE_KEY }} # optional, will override `SSH_PRIVATE_KEY`
@@ -104,8 +130,8 @@ jobs:
         uses: morganschoen/git-sync@main
         with:
           source_repo: "rmgpanw/ourproj"
-          source_branch: "ourproj_template"
-          destination_repo: "rmgpanw/ourproj_template"
+          source_branch: "workflowr_targets"
+          destination_repo: "rmgpanw/workflowr_targets"
           destination_branch: "main"
           ssh_private_key: ${{ secrets.SSH_PRIVATE_KEY }} # optional
           # source_ssh_private_key: ${{ secrets.SOURCE_SSH_PRIVATE_KEY }} # optional, will override `SSH_PRIVATE_KEY`
