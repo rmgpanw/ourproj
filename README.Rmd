@@ -19,6 +19,10 @@ knitr::opts_chunk$set(
 [![R-CMD-check](https://github.com/rmgpanw/ourproj/actions/workflows/check-standard.yml/badge.svg)](https://github.com/rmgpanw/ourproj/actions/workflows/check-standard.yml)
 [![pkgdown](https://github.com/rmgpanw/ourproj/actions/workflows/pkgdown.yaml/badge.svg)](https://github.com/rmgpanw/ourproj/actions/workflows/pkgdown.yaml)
 [![mirror-template-repos](https://github.com/rmgpanw/ourproj/actions/workflows/mirror-template-repos.yml/badge.svg)](https://github.com/rmgpanw/ourproj/actions/workflows/mirror-template-repos.yml)
+[![Codecov test coverage](https://codecov.io/gh/rmgpanw/ourproj/branch/main/graph/badge.svg)](https://app.codecov.io/gh/rmgpanw/ourproj?branch=main)
+[![Project Status: WIP – Initial development is in progress, but there
+has not yet been a stable, usable release suitable for the
+public.](https://www.repostatus.org/badges/latest/wip.svg)](https://www.repostatus.org/#wip)
 <!-- badges: end -->
 
 The goal of ourproj is to provide a data science project template that combines [workflowr](https://workflowr.github.io/workflowr/) or [quarto](https://quarto.org/) with [targets](https://books.ropensci.org/targets/). Analyses are organised in research website, which can be viewed locally and also easily deployed to either [GitHub Pages](https://pages.github.com/) or [GitLab Pages](https://docs.gitlab.com/ee/user/project/pages/).

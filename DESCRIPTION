@@ -40,6 +40,7 @@ Imports:
 Suggests: 
     bookdown,
     broom,
+    covr,
     devtools,
     flextable,
     quarto,
