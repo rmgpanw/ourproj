@@ -35,7 +35,6 @@ Imports:
     tarchetypes,
     tidyselect,
     whisker,
-    workflowr,
     yaml
 Suggests: 
     bookdown,
@@ -45,5 +44,6 @@ Suggests:
     flextable,
     quarto,
     testthat (>= 3.0.0),
-    visNetwork
+    visNetwork,
+    workflowr
 Config/testthat/edition: 3
