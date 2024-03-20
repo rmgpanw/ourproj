@@ -1,0 +1,22 @@
+---
+title: "My analysis"
+subtitle: "My analysis subtitle"
+categories: [Exploratory]
+description: Description of my analysis
+author: My name
+date: 2000-01-01
+editor: source
+execute: 
+  warning: false
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup}
+library(targets)
+tar_load(MY_FILE)
+```
+
+# Overview
+
+Analysis details

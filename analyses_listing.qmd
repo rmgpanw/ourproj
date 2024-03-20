@@ -1,0 +1,11 @@
+---
+title: "Analyses"
+editor: source
+listing: 
+  contents: analyses
+  type: default
+  categories: true
+  sort:
+    - "date"
+    - "title desc"
+---
