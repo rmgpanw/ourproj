@@ -9,7 +9,7 @@ ourproj_start(
   project_title,
   git_username,
   github_gitlab = "gitlab",
-  template = "workflowr_targets_minimal"
+  template = "workflowr_targets"
 )
 }
 \arguments{
@@ -23,8 +23,8 @@ exists.}
 
 \item{github_gitlab}{character. Either 'github' or 'gitlab'}
 
-\item{template}{Project template to be used. Options:
-'workflowr_targets_minimal', 'workflowr_targets', 'quarto_website_targets'.}
+\item{template}{Project template to be used. Options: 'workflowr_targets',
+'quarto_website_targets'.}
 }
 \value{
 \code{directory} invisibly.
@@ -38,7 +38,6 @@ Creates a directory with the essential files for a
 \details{
 Examples of available project templates:
 \itemize{
-\item \href{https://rmgpanw.github.io/workflowr_targets_minimal/}{workflowr_targets_minimal}
 \item \href{https://rmgpanw.github.io/workflowr_targets/}{workflowr_targets}
 \item \href{https://rmgpanw.github.io/quarto_website_targets/}{quarto_website_targets}
 }

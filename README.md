@@ -52,7 +52,7 @@ ourproj_start(directory = "~/NEW_PROJECT_DIR",
               project_title = "My project", 
               git_username = "My git username", 
               github_gitlab = "github", 
-              template = "workflowr_targets_minimal")
+              template = "workflowr_targets")
 
 # use renv to install required R packages
 renv::init()
@@ -69,6 +69,5 @@ targets::tar_make()
 
 ## Example repositories
 
-- [`workflowr_targets_minimal`](https://rmgpanw.github.io/workflowr_targets_minimal/)
 - [`workflowr_targets`](https://rmgpanw.github.io/workflowr_targets/)
 - [`quarto_website_targets`](https://rmgpanw.github.io/quarto_website_targets/)

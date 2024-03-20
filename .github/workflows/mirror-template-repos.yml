@@ -52,27 +52,8 @@ jobs:
       - name: Create template repos in separate directories
         run: |
           R -e 'devtools::install_local(".")'
-          R -e 'library(ourproj); ourproj_start(directory = "~/workflowr_targets_minimal", project_title = "My Project", git_username = "rmgpanw", github_gitlab = "github", template = "workflowr_targets_minimal")'
           R -e 'library(ourproj); ourproj_start(directory = "~/workflowr_targets", project_title = "My Project", git_username = "rmgpanw", github_gitlab = "github", template = "workflowr_targets")'
           R -e 'library(ourproj); ourproj_start(directory = "~/quarto_website_targets", project_title = "My Project", git_username = "rmgpanw", github_gitlab = "github", template = "quarto_website_targets")'
-
-      - name: Create new orphan branch populated with minimal template repo
-        run: |
-          git config --global user.name "GitHub Actions"
-          git config --global user.email "actions@github.com"
-          git checkout --orphan workflowr_targets_minimal
-          git reset
-          cp -r .git ~/workflowr_targets_minimal
-          rm -rf .[^.]* *
-          cp -r ~/workflowr_targets_minimal/. .
-          R -e 'fs::file_copy(path = list.files(fs::path_package("rmarkdown/templates/workflowr_analysis/skeleton", package = "ourproj"), full.names = TRUE), new_path = "analysis/my_analysis.Rmd")'
-          git add .
-          git commit -m "Initial commit"
-          R -e 'targets::tar_make()'
-          R -e 'targets::tar_meta(fields = error, complete_only = TRUE)'
-          git add .
-          git commit -m "Run targets pipeline"
-          git push --force origin workflowr_targets_minimal
 
       - name: Create new orphan branch populated with template repo
         run: |
@@ -109,17 +90,6 @@ jobs:
           git add .
           git commit -m "Run targets pipeline"
           git push --force origin quarto_website_targets
-
-      - name: git-sync workflowr_targets_minimal
-        uses: morganschoen/git-sync@main
-        with:
-          source_repo: "rmgpanw/ourproj"
-          source_branch: "workflowr_targets_minimal"
-          destination_repo: "rmgpanw/workflowr_targets_minimal"
-          destination_branch: "main"
-          ssh_private_key: ${{ secrets.SSH_PRIVATE_KEY }} # optional
-          # source_ssh_private_key: ${{ secrets.SOURCE_SSH_PRIVATE_KEY }} # optional, will override `SSH_PRIVATE_KEY`
-          # destination_ssh_private_key: ${{ secrets.DESTINATION_SSH_PRIVATE_KEY }} # optional, will override `SSH_PRIVATE_KEY`
 
       - name: git-sync workflowr_targets
         uses: morganschoen/git-sync@main

@@ -8,7 +8,6 @@
 #'
 #' Examples of available project templates:
 #'
-#' - [workflowr_targets_minimal](https://rmgpanw.github.io/workflowr_targets_minimal/)
 #' - [workflowr_targets](https://rmgpanw.github.io/workflowr_targets/)
 #' - [quarto_website_targets](https://rmgpanw.github.io/quarto_website_targets/)
 #'
@@ -18,8 +17,8 @@
 #' @param project_title character. The title of the project.
 #' @param git_username character. GitHub/GitLab user name.
 #' @param github_gitlab character. Either 'github' or 'gitlab'
-#' @param template Project template to be used. Options:
-#'   'workflowr_targets_minimal', 'workflowr_targets', 'quarto_website_targets'.
+#' @param template Project template to be used. Options: 'workflowr_targets',
+#'   'quarto_website_targets'.
 #'
 #' @return `directory` invisibly.
 #' @export
@@ -36,7 +35,7 @@ ourproj_start <- function(directory,
                           project_title,
                           git_username,
                           github_gitlab = "gitlab",
-                          template = 'workflowr_targets_minimal') {
+                          template = 'workflowr_targets') {
 
 
   # Validate args -----------------------------------------------------------
@@ -55,7 +54,6 @@ ourproj_start <- function(directory,
   match.arg(
     template,
     choices = c(
-      'workflowr_targets_minimal',
       'workflowr_targets',
       'quarto_website_targets'
     )

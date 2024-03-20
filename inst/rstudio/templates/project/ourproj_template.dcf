@@ -18,4 +18,4 @@ Fields: gitlab, github
 Parameter: template
 Widget: SelectInput
 Label: Project template
-Fields: workflowr_targets_minimal, workflowr_targets, quarto_website_targets
+Fields: workflowr_targets, quarto_website_targets

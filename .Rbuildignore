@@ -15,11 +15,6 @@ inst/workflowr_targets/public/*
 inst/workflowr_targets/renv/
 inst/workflowr_targets/renv.lock
 
-# workflowr_targets_minimal
-inst/workflowr_targets_minimal/public/*
-inst/workflowr_targets_minimal/renv/
-inst/workflowr_targets_minimal/renv.lock
-
 # quarto_website_targets
 inst/quarto_website_targets/public/*
 inst/quarto_website_targets/{{OUTPUT_DIR}}/*
