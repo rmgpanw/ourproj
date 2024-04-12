@@ -1,0 +1,23 @@
+[
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Welcome",
+    "section": "",
+    "text": "Welcome to my research website.\nAdditional analyses may be added by adding either .qmd or .Rmd notebooks in the analysis directory. These will be listed under the ‘Analysis’ tab when the website is rebuilt.\nRe-run the analysis pipeline by running targets::tar_make()\n\nCodetargets::tar_visnetwork(targets_only = TRUE,\n                        callr_arguments = list(show = FALSE))"
+  },
+  {
+    "objectID": "analyses/example_analysis.html",
+    "href": "analyses/example_analysis.html",
+    "title": "My analysis",
+    "section": "",
+    "text": "Codelibrary(targets)\ntar_load(MY_FILE)\n\n\nOverview\nAnalysis details"
+  },
+  {
+    "objectID": "analyses_listing.html",
+    "href": "analyses_listing.html",
+    "title": "Analyses",
+    "section": "",
+    "text": "My analysis\n\n\nMy analysis subtitle\n\n\n\nExploratory\n\n\n\nDescription of my analysis\n\n\n\n\n\nJan 1, 2000\n\n\nMy name\n\n\n\n\n\n\nNo matching items"
+  }
+]
