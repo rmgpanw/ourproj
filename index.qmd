@@ -1,0 +1,16 @@
+---
+title: "Welcome"
+editor_options: 
+  chunk_output_type: console
+---
+
+Welcome to my research website.
+
+Additional analyses may be added by adding either `.qmd` or `.Rmd` notebooks in the `analysis` directory. These will be listed under the 'Analysis' tab when the website is rebuilt.
+
+Re-run the analysis pipeline by running `targets::tar_make()`
+
+```{r tar-visnetwork}
+targets::tar_visnetwork(targets_only = TRUE,
+                        callr_arguments = list(show = FALSE))
+```
