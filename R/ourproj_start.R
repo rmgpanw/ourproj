@@ -78,10 +78,17 @@ ourproj_start <- function(directory,
                                        "' already exists at ",
                                        project_parent_directory))
 
-  fs::dir_copy(path = fs::path_package(template,
-                                       package = "ourproj"),
-               new_path = directory,
-               overwrite = FALSE)
+  dir.create(directory)
+  file.copy(
+    from = list.files(
+      fs::path_package(template,
+                       package = "ourproj"),
+      all.files = TRUE,
+      full.names = TRUE
+    ),
+    to = directory,
+    recursive = TRUE
+  )
 
   # Render files using `whisker.render()` ---------------------
 
