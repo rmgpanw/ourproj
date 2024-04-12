@@ -25,3 +25,4 @@ inst/quarto_website_targets/\.quarto
 # various
 ^_template_repo_dependencies\.R$
 ^codecov\.yml$
+^Dockerfile$
