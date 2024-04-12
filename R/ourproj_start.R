@@ -84,9 +84,11 @@ ourproj_start <- function(directory,
       fs::path_package(template,
                        package = "ourproj"),
       all.files = TRUE,
-      full.names = TRUE
+      full.names = TRUE,
+      no.. = TRUE
     ),
     to = directory,
+    overwrite = FALSE,
     recursive = TRUE
   )
 
