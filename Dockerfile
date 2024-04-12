@@ -1,4 +1,4 @@
-FROM rocker/verse:4.2.0
+FROM rocker/verse:4.3.3
 
 # Install remotes R package
 RUN R -e 'install.packages("remotes")'

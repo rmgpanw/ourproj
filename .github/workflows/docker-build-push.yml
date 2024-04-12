@@ -23,7 +23,7 @@ jobs:
         run: |
           # tag name
           TAG_BASE="rmgpanw/ourproj"
-          TAG_NAME="${TAG_BASE}:$(sed -n 's/Version: //p' DESCRIPTION)"
+          TAG_NAME="${TAG_BASE}:4.3.3:$(sed -n 's/Version: //p' DESCRIPTION)"
           TAG_NAME_DEV="${TAG_NAME}-dev"
           echo "::set-output name=tag_base::${TAG_BASE}"
           echo "::set-output name=tag_name::${TAG_NAME}"
